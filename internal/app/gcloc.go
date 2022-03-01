@@ -1,8 +1,6 @@
 package app
 
 import (
-	"os"
-
 	"github.com/spf13/cobra"
 
 	"github.com/JoaoDanielRufino/gcloc/internal/constants"
@@ -39,10 +37,7 @@ func run() commandRunnerFunc {
 }
 
 func getParams(cmd *cobra.Command, args []string) (gcloc.Params, error) {
-	pathToScan, err := os.Getwd()
-	if err != nil {
-		return gcloc.Params{}, err
-	}
+	pathToScan := "./"
 
 	if len(args) == 1 {
 		pathToScan = args[0]
