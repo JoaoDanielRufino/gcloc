@@ -5,6 +5,7 @@ import (
 
 	"github.com/JoaoDanielRufino/gcloc/internal/constants"
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
+	"github.com/JoaoDanielRufino/gcloc/pkg/filesystem"
 )
 
 type Params struct {
@@ -17,17 +18,22 @@ type GCloc struct {
 	fileAnalyzer analyzer.Analyzer
 }
 
-func NewGCloc(params Params) GCloc {
+func NewGCloc(params Params) (GCloc, error) {
+	excludeDirs, err := filesystem.GetExcludeDirs(params.Path, params.ExcludeDirs)
+	if err != nil {
+		return GCloc{}, err
+	}
+
 	fileAnalyzer := analyzer.NewAnalyzer(
 		params.Path,
-		params.ExcludeDirs,
+		excludeDirs,
 		constants.Extensions,
 	)
 
 	return GCloc{
 		params,
 		fileAnalyzer,
-	}
+	}, nil
 }
 
 func (gc GCloc) Run() error {

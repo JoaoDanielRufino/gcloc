@@ -19,7 +19,7 @@ func InitFlags(flagSet *pflag.FlagSet, flags map[string]Flag) {
 		case reflect.String:
 			flagSet.StringP(flagName, flag.ShortName, flag.DefaultValue.(string), flag.Description)
 		case reflect.Slice:
-			flagSet.StringArrayP(flagName, flag.ShortName, flag.DefaultValue.([]string), flag.Description)
+			flagSet.StringSliceP(flagName, flag.ShortName, flag.DefaultValue.([]string), flag.Description)
 		}
 	}
 }

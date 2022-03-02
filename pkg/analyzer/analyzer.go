@@ -3,6 +3,7 @@ package analyzer
 import (
 	"io/fs"
 	"path/filepath"
+	"strings"
 )
 
 type Analyzer struct {
@@ -64,6 +65,12 @@ func (a Analyzer) getFileExtension(path string) string {
 }
 
 func (a Analyzer) canAdd(path string, extension string) bool {
+	for _, dirToExclude := range a.ExcludeDirs {
+		if strings.HasPrefix(path, dirToExclude) {
+			return false
+		}
+	}
+
 	if _, ok := a.SupportedExtensions[extension]; ok {
 		return true
 	}
