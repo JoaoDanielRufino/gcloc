@@ -71,9 +71,6 @@ func (a *Analyzer) canAdd(path string, extension string) bool {
 		}
 	}
 
-	if _, ok := a.SupportedExtensions[extension]; ok {
-		return true
-	}
-
-	return false
+	_, ok := a.SupportedExtensions[extension]
+	return ok
 }
