@@ -47,7 +47,7 @@ func getParams(cmd *cobra.Command, args []string) (gcloc.Params, error) {
 		pathToScan = args[0]
 	}
 
-	excludeDirs, err := cmd.Flags().GetStringSlice(constants.ExcludeDirFlag)
+	excludeDirs, err := cmd.Flags().GetStringSlice(constants.ExcludeFlag)
 	if err != nil {
 		return gcloc.Params{}, err
 	}

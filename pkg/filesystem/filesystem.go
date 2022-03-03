@@ -4,7 +4,7 @@ import (
 	"path/filepath"
 )
 
-func GetExcludeDirs(path string, excludeDirParams []string) ([]string, error) {
+func GetExcludeFiles(path string, excludeDirParams []string) ([]string, error) {
 	var excludeDirs []string
 
 	for _, dir := range excludeDirParams {

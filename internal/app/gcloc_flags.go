@@ -8,10 +8,10 @@ import (
 )
 
 var gclocFlags = map[string]flags.Flag{
-	constants.ExcludeDirFlag: {
+	constants.ExcludeFlag: {
 		ShortName:    "e",
 		Kind:         reflect.Slice,
 		DefaultValue: []string{},
-		Description:  "Exclude directories from being scanned",
+		Description:  "Exclude directories or files from being scanned",
 	},
 }

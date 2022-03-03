@@ -1,5 +1,5 @@
 package constants
 
 const (
-	ExcludeDirFlag = "exclude-dir"
+	ExcludeFlag = "exclude"
 )

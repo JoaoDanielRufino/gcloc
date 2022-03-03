@@ -19,7 +19,7 @@ type GCloc struct {
 }
 
 func NewGCloc(params Params) (GCloc, error) {
-	excludeDirs, err := filesystem.GetExcludeDirs(params.Path, params.ExcludeDirs)
+	excludeDirs, err := filesystem.GetExcludeFiles(params.Path, params.ExcludeDirs)
 	if err != nil {
 		return GCloc{}, err
 	}
