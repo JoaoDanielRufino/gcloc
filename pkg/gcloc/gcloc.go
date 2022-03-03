@@ -6,6 +6,7 @@ import (
 	"github.com/JoaoDanielRufino/gcloc/internal/constants"
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
 	"github.com/JoaoDanielRufino/gcloc/pkg/filesystem"
+	"github.com/JoaoDanielRufino/gcloc/pkg/scanner"
 )
 
 type Params struct {
@@ -16,6 +17,7 @@ type Params struct {
 type GCloc struct {
 	Params   Params
 	analyzer *analyzer.Analyzer
+	scanner  *scanner.Scanner
 }
 
 func NewGCloc(params Params) (GCloc, error) {
@@ -30,19 +32,27 @@ func NewGCloc(params Params) (GCloc, error) {
 		constants.Extensions,
 	)
 
+	scanner := scanner.NewScanner()
+
 	return GCloc{
 		params,
 		fileAnalyzer,
+		scanner,
 	}, nil
 }
 
 func (gc GCloc) Run() error {
-	files, err := gc.analyzer.FilesToScan()
+	files, err := gc.analyzer.MatchingFiles()
 	if err != nil {
 		return err
 	}
 
-	fmt.Println(files)
+	scanResult, err := gc.scanner.Scan(files)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(scanResult)
 
 	return nil
 }

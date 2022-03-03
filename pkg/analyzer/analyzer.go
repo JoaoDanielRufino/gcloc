@@ -12,7 +12,7 @@ type Analyzer struct {
 	supportedExtensions map[string]string
 }
 
-type fileMetadata struct {
+type FileMetadata struct {
 	FilePath  string
 	Extension string
 	Language  string
@@ -26,8 +26,8 @@ func NewAnalyzer(path string, excludePaths []string, extensions map[string]strin
 	}
 }
 
-func (a *Analyzer) FilesToScan() ([]fileMetadata, error) {
-	var files []fileMetadata
+func (a *Analyzer) MatchingFiles() ([]FileMetadata, error) {
+	var files []FileMetadata
 
 	err := filepath.Walk(a.path, func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
@@ -40,7 +40,7 @@ func (a *Analyzer) FilesToScan() ([]fileMetadata, error) {
 
 		fileExtension := a.getFileExtension(path)
 		if a.canAdd(path, fileExtension) {
-			fm := fileMetadata{
+			fm := FileMetadata{
 				FilePath:  path,
 				Extension: fileExtension,
 				Language:  a.supportedExtensions[fileExtension],
