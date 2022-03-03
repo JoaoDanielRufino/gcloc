@@ -3,7 +3,6 @@ package gcloc
 import (
 	"fmt"
 
-	"github.com/JoaoDanielRufino/gcloc/internal/constants"
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
 	"github.com/JoaoDanielRufino/gcloc/pkg/filesystem"
 	"github.com/JoaoDanielRufino/gcloc/pkg/scanner"
@@ -14,34 +13,43 @@ type Params struct {
 	ExcludePaths []string
 }
 
-type GCloc struct {
-	Params   Params
-	analyzer *analyzer.Analyzer
-	scanner  *scanner.Scanner
+type LanguageInfo struct {
+	LineComments     []string
+	MultiLineComment [][]string
 }
 
-func NewGCloc(params Params) (GCloc, error) {
+type GCloc struct {
+	Params              Params
+	SupportedExtensions map[string]string
+	SupprotedLanguages  map[string]LanguageInfo
+	analyzer            *analyzer.Analyzer
+	scanner             *scanner.Scanner
+}
+
+func NewGCloc(params Params, extensions map[string]string, languages map[string]LanguageInfo) (*GCloc, error) {
 	excludePaths, err := filesystem.GetExcludePaths(params.Path, params.ExcludePaths)
 	if err != nil {
-		return GCloc{}, err
+		return &GCloc{}, err
 	}
 
-	fileAnalyzer := analyzer.NewAnalyzer(
+	analyzer := analyzer.NewAnalyzer(
 		params.Path,
 		excludePaths,
-		constants.Extensions,
+		extensions,
 	)
 
 	scanner := scanner.NewScanner()
 
-	return GCloc{
-		params,
-		fileAnalyzer,
-		scanner,
+	return &GCloc{
+		Params:              params,
+		SupportedExtensions: extensions,
+		SupprotedLanguages:  languages,
+		analyzer:            analyzer,
+		scanner:             scanner,
 	}, nil
 }
 
-func (gc GCloc) Run() error {
+func (gc *GCloc) Run() error {
 	files, err := gc.analyzer.MatchingFiles()
 	if err != nil {
 		return err

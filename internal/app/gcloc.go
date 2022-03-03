@@ -31,7 +31,7 @@ func run() commandRunnerFunc {
 			return err
 		}
 
-		gc, err := gcloc.NewGCloc(params)
+		gc, err := gcloc.NewGCloc(params, constants.Extensions, constants.Languages)
 		if err != nil {
 			return err
 		}
