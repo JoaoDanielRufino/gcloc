@@ -7,9 +7,9 @@ import (
 )
 
 type Analyzer struct {
-	Path                string
-	ExcludePaths        []string
-	SupportedExtensions map[string]string
+	path                string
+	excludePaths        []string
+	supportedExtensions map[string]string
 }
 
 type fileMetadata struct {
@@ -20,16 +20,16 @@ type fileMetadata struct {
 
 func NewAnalyzer(path string, excludePaths []string, extensions map[string]string) *Analyzer {
 	return &Analyzer{
-		Path:                path,
-		ExcludePaths:        excludePaths,
-		SupportedExtensions: extensions,
+		path:                path,
+		excludePaths:        excludePaths,
+		supportedExtensions: extensions,
 	}
 }
 
-func (a *Analyzer) Analyze() ([]fileMetadata, error) {
+func (a *Analyzer) FilesToScan() ([]fileMetadata, error) {
 	var files []fileMetadata
 
-	err := filepath.Walk(a.Path, func(path string, info fs.FileInfo, err error) error {
+	err := filepath.Walk(a.path, func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
@@ -43,7 +43,7 @@ func (a *Analyzer) Analyze() ([]fileMetadata, error) {
 			fm := fileMetadata{
 				FilePath:  path,
 				Extension: fileExtension,
-				Language:  a.SupportedExtensions[fileExtension],
+				Language:  a.supportedExtensions[fileExtension],
 			}
 			files = append(files, fm)
 		}
@@ -65,12 +65,12 @@ func (a *Analyzer) getFileExtension(path string) string {
 }
 
 func (a *Analyzer) canAdd(path string, extension string) bool {
-	for _, pathToExclude := range a.ExcludePaths {
+	for _, pathToExclude := range a.excludePaths {
 		if strings.HasPrefix(path, pathToExclude) {
 			return false
 		}
 	}
 
-	_, ok := a.SupportedExtensions[extension]
+	_, ok := a.supportedExtensions[extension]
 	return ok
 }

@@ -14,8 +14,8 @@ type Params struct {
 }
 
 type GCloc struct {
-	Params       Params
-	fileAnalyzer *analyzer.Analyzer
+	Params   Params
+	analyzer *analyzer.Analyzer
 }
 
 func NewGCloc(params Params) (GCloc, error) {
@@ -37,7 +37,7 @@ func NewGCloc(params Params) (GCloc, error) {
 }
 
 func (gc GCloc) Run() error {
-	files, err := gc.fileAnalyzer.Analyze()
+	files, err := gc.analyzer.FilesToScan()
 	if err != nil {
 		return err
 	}
