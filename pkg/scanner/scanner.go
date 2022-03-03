@@ -1,9 +1,10 @@
 package scanner
 
 import (
-	"bytes"
+	"bufio"
 	"io"
 	"os"
+	"strings"
 
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
 )
@@ -15,6 +16,7 @@ type Scanner struct {
 type scanResult struct {
 	Metadata  analyzer.FileMetadata
 	CodeLines int
+	Comments  int
 }
 
 func NewScanner() *Scanner {
@@ -32,7 +34,7 @@ func (sc *Scanner) Scan(files []analyzer.FileMetadata) ([]scanResult, error) {
 			return results, err
 		}
 
-		codeLines, err := sc.countLines(f)
+		codeLines, comments, err := sc.countLines(f)
 		if err != nil {
 			return results, err
 		}
@@ -40,6 +42,7 @@ func (sc *Scanner) Scan(files []analyzer.FileMetadata) ([]scanResult, error) {
 		result := scanResult{
 			Metadata:  file,
 			CodeLines: codeLines,
+			Comments:  comments,
 		}
 		results = append(results, result)
 		f.Close()
@@ -48,22 +51,22 @@ func (sc *Scanner) Scan(files []analyzer.FileMetadata) ([]scanResult, error) {
 	return results, nil
 }
 
-func (sc *Scanner) countLines(r io.Reader) (int, error) {
-	buffer := make([]byte, sc.BufferSize*1024)
-	lineStep := []byte{'\n'}
-	count := 0
+func (sc *Scanner) countLines(r io.Reader) (int, int, error) {
+	fileScanner := bufio.NewScanner(r)
+	lines := 0
+	comments := 0
 
-	for {
-		n, err := r.Read(buffer)
-		count += bytes.Count(buffer[:n], lineStep)
+	for fileScanner.Scan() {
+		line := strings.TrimLeft(fileScanner.Text(), " ")
 
-		switch err {
-		case io.EOF:
-			return count, nil
-		case nil:
-			continue
-		default:
-			return count, err
+		lines++
+
+		if strings.HasPrefix(line, "//") {
+			comments++
 		}
 	}
+
+	err := fileScanner.Err()
+
+	return lines, comments, err
 }
