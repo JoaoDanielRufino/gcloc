@@ -4,10 +4,10 @@ import (
 	"path/filepath"
 )
 
-func GetExcludeFiles(path string, excludeDirParams []string) ([]string, error) {
+func GetExcludePaths(path string, excludePathsParam []string) ([]string, error) {
 	var excludeDirs []string
 
-	for _, dir := range excludeDirParams {
+	for _, dir := range excludePathsParam {
 		matches, err := filepath.Glob(filepath.Join(path, dir))
 		if err != nil {
 			return []string{}, err

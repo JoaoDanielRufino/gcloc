@@ -8,7 +8,7 @@ import (
 )
 
 var gclocFlags = map[string]flags.Flag{
-	constants.ExcludeFlag: {
+	constants.ExcludePathsFlag: {
 		ShortName:    "e",
 		Kind:         reflect.Slice,
 		DefaultValue: []string{},

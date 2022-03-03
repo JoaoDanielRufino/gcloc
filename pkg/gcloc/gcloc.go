@@ -9,8 +9,8 @@ import (
 )
 
 type Params struct {
-	Path        string
-	ExcludeDirs []string
+	Path         string
+	ExcludePaths []string
 }
 
 type GCloc struct {
@@ -19,14 +19,14 @@ type GCloc struct {
 }
 
 func NewGCloc(params Params) (GCloc, error) {
-	excludeDirs, err := filesystem.GetExcludeFiles(params.Path, params.ExcludeDirs)
+	excludePaths, err := filesystem.GetExcludePaths(params.Path, params.ExcludePaths)
 	if err != nil {
 		return GCloc{}, err
 	}
 
 	fileAnalyzer := analyzer.NewAnalyzer(
 		params.Path,
-		excludeDirs,
+		excludePaths,
 		constants.Extensions,
 	)
 
