@@ -2,15 +2,16 @@ package scanner
 
 import (
 	"bufio"
-	"io"
 	"os"
 	"strings"
 
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
+	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
 )
 
 type Scanner struct {
-	BufferSize int
+	BufferSize         int
+	supportedLanguages language.Languages
 }
 
 type scanResult struct {
@@ -19,9 +20,10 @@ type scanResult struct {
 	Comments  int
 }
 
-func NewScanner() *Scanner {
+func NewScanner(languages language.Languages) *Scanner {
 	return &Scanner{
-		BufferSize: 32,
+		BufferSize:         32,
+		supportedLanguages: languages,
 	}
 }
 
@@ -29,12 +31,7 @@ func (sc *Scanner) Scan(files []analyzer.FileMetadata) ([]scanResult, error) {
 	var results []scanResult
 
 	for _, file := range files {
-		f, err := os.Open(file.FilePath)
-		if err != nil {
-			return results, err
-		}
-
-		codeLines, comments, err := sc.countLines(f)
+		codeLines, comments, err := sc.scanFile(file)
 		if err != nil {
 			return results, err
 		}
@@ -45,28 +42,47 @@ func (sc *Scanner) Scan(files []analyzer.FileMetadata) ([]scanResult, error) {
 			Comments:  comments,
 		}
 		results = append(results, result)
-		f.Close()
 	}
 
 	return results, nil
 }
 
-func (sc *Scanner) countLines(r io.Reader) (int, int, error) {
-	fileScanner := bufio.NewScanner(r)
+func (sc *Scanner) ChangeLanguages(languages language.Languages) {
+	sc.supportedLanguages = languages
+}
+
+func (sc *Scanner) scanFile(file analyzer.FileMetadata) (int, int, error) {
 	lines := 0
 	comments := 0
 
+	f, err := os.Open(file.FilePath)
+	if err != nil {
+		return lines, comments, err
+	}
+	defer f.Close()
+
+	fileScanner := bufio.NewScanner(f)
 	for fileScanner.Scan() {
-		line := strings.TrimLeft(fileScanner.Text(), " ")
+		line := strings.TrimSpace(fileScanner.Text())
 
 		lines++
 
-		if strings.HasPrefix(line, "//") {
+		if sc.hasSingleLineComment(file, line) {
 			comments++
 		}
 	}
 
-	err := fileScanner.Err()
+	return lines, comments, fileScanner.Err()
+}
 
-	return lines, comments, err
+func (sc *Scanner) hasSingleLineComment(file analyzer.FileMetadata, line string) bool {
+	lineComments := sc.supportedLanguages[file.Language].LineComments
+
+	for _, lineComment := range lineComments {
+		if strings.HasPrefix(line, lineComment) {
+			return true
+		}
+	}
+
+	return false
 }

@@ -54,6 +54,10 @@ func (a *Analyzer) MatchingFiles() ([]FileMetadata, error) {
 	return files, err
 }
 
+func (a *Analyzer) ChangeExtensions(extensions map[string]string) {
+	a.supportedExtensions = extensions
+}
+
 func (a *Analyzer) getFileExtension(path string) string {
 	extension := filepath.Ext(path)
 
