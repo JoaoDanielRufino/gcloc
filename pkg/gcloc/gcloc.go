@@ -15,7 +15,7 @@ type Params struct {
 
 type GCloc struct {
 	Params       Params
-	fileAnalyzer analyzer.Analyzer
+	fileAnalyzer *analyzer.Analyzer
 }
 
 func NewGCloc(params Params) (GCloc, error) {

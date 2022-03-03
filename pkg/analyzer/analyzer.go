@@ -18,15 +18,15 @@ type fileMetadata struct {
 	Language  string
 }
 
-func NewAnalyzer(path string, excludeDirs []string, extensions map[string]string) Analyzer {
-	return Analyzer{
+func NewAnalyzer(path string, excludeDirs []string, extensions map[string]string) *Analyzer {
+	return &Analyzer{
 		Path:                path,
 		ExcludeDirs:         excludeDirs,
 		SupportedExtensions: extensions,
 	}
 }
 
-func (a Analyzer) Analyze() ([]fileMetadata, error) {
+func (a *Analyzer) Analyze() ([]fileMetadata, error) {
 	var files []fileMetadata
 
 	err := filepath.Walk(a.Path, func(path string, info fs.FileInfo, err error) error {
@@ -54,7 +54,7 @@ func (a Analyzer) Analyze() ([]fileMetadata, error) {
 	return files, err
 }
 
-func (a Analyzer) getFileExtension(path string) string {
+func (a *Analyzer) getFileExtension(path string) string {
 	extension := filepath.Ext(path)
 
 	if extension == "" {
@@ -64,7 +64,7 @@ func (a Analyzer) getFileExtension(path string) string {
 	return extension
 }
 
-func (a Analyzer) canAdd(path string, extension string) bool {
+func (a *Analyzer) canAdd(path string, extension string) bool {
 	for _, dirToExclude := range a.ExcludeDirs {
 		if strings.HasPrefix(path, dirToExclude) {
 			return false

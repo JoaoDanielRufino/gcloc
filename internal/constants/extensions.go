@@ -1,6 +1,8 @@
 package constants
 
 var Extensions = map[string]string{
-	".go":  "golang",
 	".cpp": "C++",
+	".go":  "golang",
+	".js":  "javascript",
+	".ts":  "typescript",
 }
