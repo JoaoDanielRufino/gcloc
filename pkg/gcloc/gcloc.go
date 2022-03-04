@@ -63,10 +63,10 @@ func (gc *GCloc) Run() error {
 
 func (gc *GCloc) ChangeExtensions(extensions map[string]string) {
 	gc.supportedExtensions = extensions
-	gc.analyzer.ChangeExtensions(extensions)
+	gc.analyzer.SupportedExtensions = extensions
 }
 
 func (gc *GCloc) ChangeLanguages(languages language.Languages) {
 	gc.supprotedLanguages = languages
-	gc.scanner.ChangeLanguages(languages)
+	gc.scanner.SupportedLanguages = languages
 }

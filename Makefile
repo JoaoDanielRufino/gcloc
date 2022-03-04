@@ -8,3 +8,8 @@ build:
 clean:
 	@echo "cleaning the gcloc package"
 	rm -rf bin coverage.out coverage.html
+
+.PHONY:test
+test:
+	@echo "running unit tests"
+	go test -v ./...

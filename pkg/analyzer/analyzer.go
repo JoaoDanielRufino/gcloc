@@ -7,9 +7,9 @@ import (
 )
 
 type Analyzer struct {
+	SupportedExtensions map[string]string
 	path                string
 	excludePaths        []string
-	supportedExtensions map[string]string
 }
 
 type FileMetadata struct {
@@ -20,9 +20,9 @@ type FileMetadata struct {
 
 func NewAnalyzer(path string, excludePaths []string, extensions map[string]string) *Analyzer {
 	return &Analyzer{
+		SupportedExtensions: extensions,
 		path:                path,
 		excludePaths:        excludePaths,
-		supportedExtensions: extensions,
 	}
 }
 
@@ -43,7 +43,7 @@ func (a *Analyzer) MatchingFiles() ([]FileMetadata, error) {
 			fm := FileMetadata{
 				FilePath:  path,
 				Extension: fileExtension,
-				Language:  a.supportedExtensions[fileExtension],
+				Language:  a.SupportedExtensions[fileExtension],
 			}
 			files = append(files, fm)
 		}
@@ -52,10 +52,6 @@ func (a *Analyzer) MatchingFiles() ([]FileMetadata, error) {
 	})
 
 	return files, err
-}
-
-func (a *Analyzer) ChangeExtensions(extensions map[string]string) {
-	a.supportedExtensions = extensions
 }
 
 func (a *Analyzer) getFileExtension(path string) string {
@@ -75,6 +71,6 @@ func (a *Analyzer) canAdd(path string, extension string) bool {
 		}
 	}
 
-	_, ok := a.supportedExtensions[extension]
+	_, ok := a.SupportedExtensions[extension]
 	return ok
 }

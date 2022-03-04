@@ -10,7 +10,7 @@ import (
 )
 
 type Scanner struct {
-	supportedLanguages language.Languages
+	SupportedLanguages language.Languages
 }
 
 type scanResult struct {
@@ -22,7 +22,7 @@ type scanResult struct {
 
 func NewScanner(languages language.Languages) *Scanner {
 	return &Scanner{
-		supportedLanguages: languages,
+		SupportedLanguages: languages,
 	}
 }
 
@@ -39,10 +39,6 @@ func (sc *Scanner) Scan(files []analyzer.FileMetadata) ([]scanResult, error) {
 	}
 
 	return results, nil
-}
-
-func (sc *Scanner) ChangeLanguages(languages language.Languages) {
-	sc.supportedLanguages = languages
 }
 
 func (sc *Scanner) scanFile(file analyzer.FileMetadata) (scanResult, error) {
@@ -91,7 +87,7 @@ func (sc *Scanner) scanFile(file analyzer.FileMetadata) (scanResult, error) {
 }
 
 func (sc *Scanner) hasFirstMultiLineComment(file analyzer.FileMetadata, line string) (bool, string) {
-	multiLineComments := sc.supportedLanguages[file.Language].MultiLineComments
+	multiLineComments := sc.SupportedLanguages[file.Language].MultiLineComments
 
 	for _, multiLineComment := range multiLineComments {
 		firstCommentToken := multiLineComment[0]
@@ -108,7 +104,7 @@ func (sc *Scanner) hasSecondMultiLineComment(line, commentToken string) bool {
 }
 
 func (sc *Scanner) hasSingleLineComment(file analyzer.FileMetadata, line string) bool {
-	lineComments := sc.supportedLanguages[file.Language].LineComments
+	lineComments := sc.SupportedLanguages[file.Language].LineComments
 
 	for _, lineComment := range lineComments {
 		if strings.HasPrefix(line, lineComment) {
