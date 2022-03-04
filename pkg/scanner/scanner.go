@@ -10,7 +10,6 @@ import (
 )
 
 type Scanner struct {
-	BufferSize         int
 	supportedLanguages language.Languages
 }
 
@@ -22,7 +21,6 @@ type scanResult struct {
 
 func NewScanner(languages language.Languages) *Scanner {
 	return &Scanner{
-		BufferSize:         32,
 		supportedLanguages: languages,
 	}
 }
