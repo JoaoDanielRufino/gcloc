@@ -62,6 +62,7 @@ func (sc *Scanner) scanFile(file analyzer.FileMetadata) (scanResult, error) {
 
 		if len(line) == 0 {
 			result.BlankLines++
+			continue
 		}
 
 		if sc.hasSingleLineComment(file, line) {
