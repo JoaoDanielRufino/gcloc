@@ -68,4 +68,5 @@ func (gc *GCloc) ChangeExtensions(extensions map[string]string) {
 
 func (gc *GCloc) ChangeLanguages(languages language.Languages) {
 	gc.supprotedLanguages = languages
+	gc.scanner.ChangeLanguages(languages)
 }
