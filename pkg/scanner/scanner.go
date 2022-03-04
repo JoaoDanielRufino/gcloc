@@ -30,17 +30,11 @@ func (sc *Scanner) Scan(files []analyzer.FileMetadata) ([]scanResult, error) {
 	var results []scanResult
 
 	for _, file := range files {
-		codeLines, blankLines, comments, err := sc.scanFile(file)
+		result, err := sc.scanFile(file)
 		if err != nil {
 			return results, err
 		}
 
-		result := scanResult{
-			Metadata:   file,
-			CodeLines:  codeLines,
-			BlankLines: blankLines,
-			Comments:   comments,
-		}
 		results = append(results, result)
 	}
 
@@ -51,14 +45,12 @@ func (sc *Scanner) ChangeLanguages(languages language.Languages) {
 	sc.supportedLanguages = languages
 }
 
-func (sc *Scanner) scanFile(file analyzer.FileMetadata) (int, int, int, error) {
-	lines := 0
-	blankLines := 0
-	comments := 0
+func (sc *Scanner) scanFile(file analyzer.FileMetadata) (scanResult, error) {
+	result := scanResult{Metadata: file}
 
 	f, err := os.Open(file.FilePath)
 	if err != nil {
-		return lines, blankLines, comments, err
+		return result, err
 	}
 	defer f.Close()
 
@@ -66,18 +58,18 @@ func (sc *Scanner) scanFile(file analyzer.FileMetadata) (int, int, int, error) {
 	for fileScanner.Scan() {
 		line := strings.TrimSpace(fileScanner.Text())
 
-		lines++
+		result.CodeLines++
 
 		if len(line) == 0 {
-			blankLines++
+			result.BlankLines++
 		}
 
 		if sc.hasSingleLineComment(file, line) {
-			comments++
+			result.Comments++
 		}
 	}
 
-	return lines, blankLines, comments, fileScanner.Err()
+	return result, fileScanner.Err()
 }
 
 func (sc *Scanner) hasSingleLineComment(file analyzer.FileMetadata, line string) bool {
