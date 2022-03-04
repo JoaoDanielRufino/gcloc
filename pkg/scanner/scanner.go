@@ -15,6 +15,7 @@ type Scanner struct {
 
 type scanResult struct {
 	Metadata   analyzer.FileMetadata
+	Lines      int
 	CodeLines  int
 	BlankLines int
 	Comments   int
@@ -56,8 +57,6 @@ func (sc *Scanner) scanFile(file analyzer.FileMetadata) (scanResult, error) {
 	for fileScanner.Scan() {
 		line := strings.TrimSpace(fileScanner.Text())
 
-		result.CodeLines++
-
 		if isInBlockComment {
 			result.Comments++
 			if sc.hasSecondMultiLineComment(line, closeBlockCommentToken) {
@@ -80,8 +79,13 @@ func (sc *Scanner) scanFile(file analyzer.FileMetadata) (scanResult, error) {
 
 		if sc.hasSingleLineComment(file, line) {
 			result.Comments++
+			continue
 		}
+
+		result.CodeLines++
 	}
+
+	result.Lines = result.CodeLines + result.BlankLines + result.Comments
 
 	return result, fileScanner.Err()
 }

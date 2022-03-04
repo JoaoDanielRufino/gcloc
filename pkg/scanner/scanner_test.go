@@ -52,9 +52,10 @@ func TestScan(t *testing.T) {
 	expected := []scanResult{
 		{
 			Metadata:   files[0],
-			CodeLines:  20,
-			Comments:   6,
+			Lines:      20,
+			CodeLines:  9,
 			BlankLines: 5,
+			Comments:   6,
 		},
 	}
 
