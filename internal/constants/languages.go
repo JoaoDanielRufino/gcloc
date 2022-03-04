@@ -1,10 +1,8 @@
 package constants
 
-import (
-	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
-)
+import "github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
 
-var Languages = map[string]language.LanguageInfo{
+var Languages = language.Languages{
 	"C++": {
 		LineComments:     []string{"//"},
 		MultiLineComment: [][]string{{"/*", "*/"}},
