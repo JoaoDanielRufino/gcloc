@@ -36,14 +36,15 @@ var languages = language.Languages{
 }
 
 func TestNewScanner(t *testing.T) {
+	expected := &Scanner{SupportedLanguages: languages}
 	scanner := NewScanner(languages)
 	require.NotNil(t, scanner)
-	require.Equal(t, languages, scanner.SupportedLanguages)
+	require.Equal(t, expected, scanner)
 }
 
 func TestScan(t *testing.T) {
-	fixtureScannerDir := filepath.Join("..", "..", "test", "fixtures", "scanner")
-	fileAnalyzer := analyzer.NewAnalyzer(fixtureScannerDir, []string{}, extensions)
+	codeSamplesDir := filepath.Join("..", "..", "test", "fixtures", "scanner")
+	fileAnalyzer := analyzer.NewAnalyzer(codeSamplesDir, []string{}, extensions)
 	scanner := NewScanner(languages)
 
 	files, _ := fileAnalyzer.MatchingFiles()
