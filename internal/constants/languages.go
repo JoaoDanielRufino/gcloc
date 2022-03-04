@@ -4,19 +4,19 @@ import "github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
 
 var Languages = language.Languages{
 	"C++": {
-		LineComments:     []string{"//"},
-		MultiLineComment: [][]string{{"/*", "*/"}},
+		LineComments:      []string{"//"},
+		MultiLineComments: [][]string{{"/*", "*/"}},
 	},
 	"Golang": {
-		LineComments:     []string{"//"},
-		MultiLineComment: [][]string{{"/*", "*/"}},
+		LineComments:      []string{"//"},
+		MultiLineComments: [][]string{{"/*", "*/"}},
 	},
 	"JavaScript": {
-		LineComments:     []string{"//"},
-		MultiLineComment: [][]string{{"/*", "*/"}},
+		LineComments:      []string{"//"},
+		MultiLineComments: [][]string{{"/*", "*/"}},
 	},
 	"TypeScript": {
-		LineComments:     []string{"//"},
-		MultiLineComment: [][]string{{"/*", "*/"}},
+		LineComments:      []string{"//"},
+		MultiLineComments: [][]string{{"/*", "*/"}},
 	},
 }

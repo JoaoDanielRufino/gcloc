@@ -47,6 +47,8 @@ func (sc *Scanner) ChangeLanguages(languages language.Languages) {
 
 func (sc *Scanner) scanFile(file analyzer.FileMetadata) (scanResult, error) {
 	result := scanResult{Metadata: file}
+	isInBlockComment := false
+	var closeBlockCommentToken string
 
 	f, err := os.Open(file.FilePath)
 	if err != nil {
@@ -60,8 +62,23 @@ func (sc *Scanner) scanFile(file analyzer.FileMetadata) (scanResult, error) {
 
 		result.CodeLines++
 
-		if len(line) == 0 {
+		if isInBlockComment {
+			result.Comments++
+			if sc.hasSecondMultiLineComment(line, closeBlockCommentToken) {
+				isInBlockComment = false
+			}
+			continue
+		}
+
+		if sc.isBlankLine(line) {
 			result.BlankLines++
+			continue
+		}
+
+		if ok, secondCommentToken := sc.hasFirstMultiLineComment(file, line); ok {
+			isInBlockComment = true
+			closeBlockCommentToken = secondCommentToken
+			result.Comments++
 			continue
 		}
 
@@ -71,6 +88,23 @@ func (sc *Scanner) scanFile(file analyzer.FileMetadata) (scanResult, error) {
 	}
 
 	return result, fileScanner.Err()
+}
+
+func (sc *Scanner) hasFirstMultiLineComment(file analyzer.FileMetadata, line string) (bool, string) {
+	multiLineComments := sc.supportedLanguages[file.Language].MultiLineComments
+
+	for _, multiLineComment := range multiLineComments {
+		firstCommentToken := multiLineComment[0]
+		if strings.HasPrefix(line, firstCommentToken) {
+			return true, multiLineComment[1]
+		}
+	}
+
+	return false, ""
+}
+
+func (sc *Scanner) hasSecondMultiLineComment(line, commentToken string) bool {
+	return strings.Contains(line, commentToken)
 }
 
 func (sc *Scanner) hasSingleLineComment(file analyzer.FileMetadata, line string) bool {
@@ -83,4 +117,8 @@ func (sc *Scanner) hasSingleLineComment(file analyzer.FileMetadata, line string)
 	}
 
 	return false
+}
+
+func (sc *Scanner) isBlankLine(line string) bool {
+	return len(line) == 0
 }
