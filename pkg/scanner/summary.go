@@ -1,6 +1,6 @@
 package scanner
 
-type summary struct {
+type Summary struct {
 	Results         []scanResult
 	TotalLines      int
 	TotalCodeLines  int
@@ -8,8 +8,8 @@ type summary struct {
 	TotalComments   int
 }
 
-func (sc *Scanner) Summary(results []scanResult) summary {
-	summary := summary{Results: results}
+func (sc *Scanner) Summary(results []scanResult) *Summary {
+	summary := &Summary{Results: results}
 
 	for _, result := range results {
 		summary.TotalLines += result.Lines

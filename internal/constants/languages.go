@@ -3,6 +3,10 @@ package constants
 import "github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
 
 var Languages = language.Languages{
+	"C": {
+		LineComments:      []string{"//"},
+		MultiLineComments: [][]string{{"/*", "*/"}},
+	},
 	"C++": {
 		LineComments:      []string{"//"},
 		MultiLineComments: [][]string{{"/*", "*/"}},

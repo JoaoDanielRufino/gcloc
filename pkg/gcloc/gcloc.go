@@ -1,11 +1,11 @@
 package gcloc
 
 import (
-	"fmt"
-
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
 	"github.com/JoaoDanielRufino/gcloc/pkg/filesystem"
 	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
+	"github.com/JoaoDanielRufino/gcloc/pkg/report"
+	"github.com/JoaoDanielRufino/gcloc/pkg/report/prompt"
 	"github.com/JoaoDanielRufino/gcloc/pkg/scanner"
 )
 
@@ -20,6 +20,7 @@ type GCloc struct {
 	supprotedLanguages  language.Languages
 	analyzer            *analyzer.Analyzer
 	scanner             *scanner.Scanner
+	reporter            report.Reporter
 }
 
 func NewGCloc(params Params, extensions map[string]string, languages language.Languages) (*GCloc, error) {
@@ -42,6 +43,7 @@ func NewGCloc(params Params, extensions map[string]string, languages language.La
 		supprotedLanguages:  languages,
 		analyzer:            analyzer,
 		scanner:             scanner,
+		reporter:            prompt.PromptReporter{},
 	}, nil
 }
 
@@ -58,7 +60,7 @@ func (gc *GCloc) Run() error {
 
 	summary := gc.scanner.Summary(scanResult)
 
-	fmt.Println(summary)
+	gc.reporter.GenerateReport(summary)
 
 	return nil
 }
