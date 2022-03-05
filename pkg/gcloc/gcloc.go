@@ -56,7 +56,9 @@ func (gc *GCloc) Run() error {
 		return err
 	}
 
-	fmt.Println(scanResult)
+	summary := gc.scanner.Summary(scanResult)
+
+	fmt.Println(summary)
 
 	return nil
 }
