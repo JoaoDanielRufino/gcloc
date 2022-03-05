@@ -11,15 +11,15 @@ import (
 type PromptReporter struct {
 }
 
-func (p PromptReporter) GenerateReport(summary *scanner.Summary) error {
+func (p PromptReporter) GenerateReportByLanguage(summary *scanner.Summary) error {
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"File path", "Lines", "Blank lines", "Comments", "Code lines"})
+	table.SetHeader([]string{"Language", "Lines", "Blank lines", "Comments", "Code lines"})
 	table.SetBorder(false)
 	table.SetAutoFormatHeaders(false)
 
-	for _, result := range summary.Results {
+	for language, result := range summary.Languages {
 		table.Append([]string{
-			result.Metadata.FilePath,
+			language,
 			strconv.Itoa(result.Lines),
 			strconv.Itoa(result.BlankLines),
 			strconv.Itoa(result.Comments),
@@ -37,5 +37,9 @@ func (p PromptReporter) GenerateReport(summary *scanner.Summary) error {
 
 	table.Render()
 
+	return nil
+}
+
+func (p PromptReporter) GenerateReportByFile(summary *scanner.Summary) error {
 	return nil
 }

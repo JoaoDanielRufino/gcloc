@@ -60,7 +60,7 @@ func (gc *GCloc) Run() error {
 
 	summary := gc.scanner.Summary(scanResult)
 
-	gc.reporter.GenerateReport(summary)
+	gc.reporter.GenerateReportByLanguage(summary)
 
 	return nil
 }

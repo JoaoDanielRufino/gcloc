@@ -1,7 +1,17 @@
 package scanner
 
+import "github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
+
+type languageResult struct {
+	Lines      int
+	CodeLines  int
+	BlankLines int
+	Comments   int
+}
+
 type Summary struct {
-	Results         []scanResult
+	Languages       map[string]*languageResult
+	Files           []analyzer.FileMetadata
 	TotalLines      int
 	TotalCodeLines  int
 	TotalBlankLines int
@@ -9,9 +19,23 @@ type Summary struct {
 }
 
 func (sc *Scanner) Summary(results []scanResult) *Summary {
-	summary := &Summary{Results: results}
+	summary := &Summary{Languages: make(map[string]*languageResult)}
 
 	for _, result := range results {
+		if value, ok := summary.Languages[result.Metadata.Language]; ok {
+			value.Lines += result.Lines
+			value.CodeLines += result.CodeLines
+			value.BlankLines += result.BlankLines
+			value.Comments += result.Comments
+		} else {
+			summary.Languages[result.Metadata.Language] = &languageResult{
+				Lines:      result.Lines,
+				CodeLines:  result.CodeLines,
+				BlankLines: result.BlankLines,
+				Comments:   result.Comments,
+			}
+		}
+		summary.Files = append(summary.Files, result.Metadata)
 		summary.TotalLines += result.Lines
 		summary.TotalCodeLines += result.CodeLines
 		summary.TotalBlankLines += result.BlankLines

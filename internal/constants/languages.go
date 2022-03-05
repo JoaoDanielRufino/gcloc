@@ -23,4 +23,8 @@ var Languages = language.Languages{
 		LineComments:      []string{"//"},
 		MultiLineComments: [][]string{{"/*", "*/"}},
 	},
+	"Makefile": {
+		LineComments:      []string{"#"},
+		MultiLineComments: [][]string{},
+	},
 }
