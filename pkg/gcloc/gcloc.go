@@ -12,6 +12,7 @@ import (
 type Params struct {
 	Path         string
 	ExcludePaths []string
+	ByFile       bool
 }
 
 type GCloc struct {
@@ -60,9 +61,13 @@ func (gc *GCloc) Run() error {
 
 	summary := gc.scanner.Summary(scanResult)
 
-	gc.reporter.GenerateReportByLanguage(summary)
+	if gc.params.ByFile {
+		err = gc.reporter.GenerateReportByFile(summary)
+	} else {
+		err = gc.reporter.GenerateReportByLanguage(summary)
+	}
 
-	return nil
+	return err
 }
 
 func (gc *GCloc) ChangeExtensions(extensions map[string]string) {

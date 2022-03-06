@@ -52,9 +52,15 @@ func getParams(cmd *cobra.Command, args []string) (gcloc.Params, error) {
 		return gcloc.Params{}, err
 	}
 
+	byFile, err := cmd.Flags().GetBool(constants.ByFileFlag)
+	if err != nil {
+		return gcloc.Params{}, err
+	}
+
 	params := gcloc.Params{
 		Path:         pathToScan,
 		ExcludePaths: excludePaths,
+		ByFile:       byFile,
 	}
 
 	return params, nil
