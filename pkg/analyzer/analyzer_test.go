@@ -4,15 +4,11 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/JoaoDanielRufino/gcloc/internal/constants"
 	"github.com/stretchr/testify/require"
 )
 
-var extensions = map[string]string{
-	".cpp": "C++",
-	".go":  "Golang",
-	".js":  "JavaScript",
-	".ts":  "TypeScript",
-}
+var extensions = constants.Extensions
 
 func TestNewAnalyzer(t *testing.T) {
 	expected := &Analyzer{
@@ -37,6 +33,11 @@ func TestMatchingFiles(t *testing.T) {
 			analyzer: NewAnalyzer(codeSamplesDir, []string{}, extensions),
 			want: []FileMetadata{
 				{
+					FilePath:  filepath.Join(codeSamplesDir, "index.html"),
+					Extension: ".html",
+					Language:  "HTML",
+				},
+				{
 					FilePath:  filepath.Join(codeSamplesDir, "main.go"),
 					Extension: ".go",
 					Language:  "Golang",
@@ -46,7 +47,13 @@ func TestMatchingFiles(t *testing.T) {
 		{
 			name:     "Should exclude files or dirs without errors",
 			analyzer: NewAnalyzer(codeSamplesDir, []string{filepath.Join(codeSamplesDir, "main.go")}, extensions),
-			want:     nil,
+			want: []FileMetadata{
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "index.html"),
+					Extension: ".html",
+					Language:  "HTML",
+				},
+			},
 		},
 	}
 

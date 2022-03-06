@@ -76,6 +76,9 @@ func (sc *Scanner) scanFile(file analyzer.FileMetadata) (scanResult, error) {
 			isInBlockComment = true
 			closeBlockCommentToken = secondCommentToken
 			result.Comments++
+			if sc.hasSecondMultiLineComment(line, closeBlockCommentToken) {
+				isInBlockComment = false
+			}
 			continue
 		}
 

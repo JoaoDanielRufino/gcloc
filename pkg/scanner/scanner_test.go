@@ -4,36 +4,13 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/JoaoDanielRufino/gcloc/internal/constants"
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
-	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
 	"github.com/stretchr/testify/require"
 )
 
-var extensions = map[string]string{
-	".cpp": "C++",
-	".go":  "Golang",
-	".js":  "JavaScript",
-	".ts":  "TypeScript",
-}
-
-var languages = language.Languages{
-	"C++": {
-		LineComments:      []string{"//"},
-		MultiLineComments: [][]string{{"/*", "*/"}},
-	},
-	"Golang": {
-		LineComments:      []string{"//"},
-		MultiLineComments: [][]string{{"/*", "*/"}},
-	},
-	"JavaScript": {
-		LineComments:      []string{"//"},
-		MultiLineComments: [][]string{{"/*", "*/"}},
-	},
-	"TypeScript": {
-		LineComments:      []string{"//"},
-		MultiLineComments: [][]string{{"/*", "*/"}},
-	},
-}
+var extensions = constants.Extensions
+var languages = constants.Languages
 
 func TestNewScanner(t *testing.T) {
 	expected := &Scanner{SupportedLanguages: languages}
@@ -52,6 +29,13 @@ func TestScan(t *testing.T) {
 	expected := []scanResult{
 		{
 			Metadata:   files[0],
+			Lines:      167,
+			CodeLines:  137,
+			BlankLines: 14,
+			Comments:   16,
+		},
+		{
+			Metadata:   files[1],
 			Lines:      20,
 			CodeLines:  9,
 			BlankLines: 5,
