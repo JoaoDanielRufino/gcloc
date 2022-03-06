@@ -1,4 +1,4 @@
-package report
+package reporter
 
 import "github.com/JoaoDanielRufino/gcloc/pkg/scanner"
 

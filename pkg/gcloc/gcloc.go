@@ -4,8 +4,8 @@ import (
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
 	"github.com/JoaoDanielRufino/gcloc/pkg/filesystem"
 	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
-	"github.com/JoaoDanielRufino/gcloc/pkg/report"
-	"github.com/JoaoDanielRufino/gcloc/pkg/report/prompt"
+	"github.com/JoaoDanielRufino/gcloc/pkg/reporter"
+	"github.com/JoaoDanielRufino/gcloc/pkg/reporter/prompt"
 	"github.com/JoaoDanielRufino/gcloc/pkg/scanner"
 )
 
@@ -20,7 +20,7 @@ type GCloc struct {
 	supprotedLanguages  language.Languages
 	analyzer            *analyzer.Analyzer
 	scanner             *scanner.Scanner
-	reporter            report.Reporter
+	reporter            reporter.Reporter
 }
 
 func NewGCloc(params Params, extensions map[string]string, languages language.Languages) (*GCloc, error) {
