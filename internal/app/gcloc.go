@@ -69,11 +69,41 @@ func getParams(cmd *cobra.Command, args []string) (gcloc.Params, error) {
 		return gcloc.Params{}, err
 	}
 
+	orderByLang, err := cmd.Flags().GetBool(constants.OrderByLangFlag)
+	if err != nil {
+		return gcloc.Params{}, err
+	}
+
+	orderByCode, err := cmd.Flags().GetBool(constants.OrderByCodeFlag)
+	if err != nil {
+		return gcloc.Params{}, err
+	}
+
+	orderByBlank, err := cmd.Flags().GetBool(constants.OrderByBlankFlag)
+	if err != nil {
+		return gcloc.Params{}, err
+	}
+
+	orderByComment, err := cmd.Flags().GetBool(constants.OrderByCommentFlag)
+	if err != nil {
+		return gcloc.Params{}, err
+	}
+
+	order, err := cmd.Flags().GetString(constants.OrderFlag)
+	if err != nil {
+		return gcloc.Params{}, err
+	}
+
 	params := gcloc.Params{
 		Path:              pathToScan,
 		ExcludePaths:      excludePaths,
 		ExcludeExtensions: excludeExtensions,
 		ByFile:            byFile,
+		OrderByLang:       orderByLang,
+		OrderByCode:       orderByCode,
+		OrderByBlank:      orderByBlank,
+		OrderByComment:    orderByComment,
+		Order:             order,
 	}
 
 	return params, nil

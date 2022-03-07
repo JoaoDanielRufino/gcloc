@@ -14,6 +14,11 @@ type Params struct {
 	ExcludePaths      []string
 	ExcludeExtensions []string
 	ByFile            bool
+	OrderByLang       bool
+	OrderByCode       bool
+	OrderByBlank      bool
+	OrderByComment    bool
+	Order             string
 }
 
 type GCloc struct {
@@ -83,7 +88,7 @@ func (gc *GCloc) ChangeLanguages(languages language.Languages) {
 }
 
 func getExcludeExtensionsMap(excludeExtensionsParam []string) map[string]bool {
-	excludeExtensions := make(map[string]bool)
+	excludeExtensions := map[string]bool{}
 
 	for _, ex := range excludeExtensionsParam {
 		excludeExtensions[ex] = true
