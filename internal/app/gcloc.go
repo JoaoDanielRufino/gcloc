@@ -3,6 +3,7 @@ package app
 import (
 	"github.com/spf13/cobra"
 
+	"github.com/JoaoDanielRufino/gcloc/internal/app/subcommands"
 	"github.com/JoaoDanielRufino/gcloc/internal/constants"
 	"github.com/JoaoDanielRufino/gcloc/internal/flags"
 	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc"
@@ -20,6 +21,9 @@ func NewGClocCmd() *cobra.Command {
 	}
 
 	flags.InitFlags(gclocCmd.Flags(), gclocFlags)
+
+	languageCmd := subcommands.NewLanguageCmd()
+	gclocCmd.AddCommand(languageCmd)
 
 	return gclocCmd
 }
