@@ -15,8 +15,9 @@ func TestNewAnalyzer(t *testing.T) {
 		SupportedExtensions: extensions,
 		path:                "test/",
 		excludePaths:        []string{"test"},
+		excludeExtensions:   map[string]bool{".go": true},
 	}
-	analyser := NewAnalyzer("test/", []string{"test"}, extensions)
+	analyser := NewAnalyzer("test/", []string{"test"}, map[string]bool{".go": true}, extensions)
 	require.NotNil(t, analyser)
 	require.Equal(t, expected, analyser)
 }
@@ -30,7 +31,7 @@ func TestMatchingFiles(t *testing.T) {
 	}{
 		{
 			name:     "Should return matching files without errors",
-			analyzer: NewAnalyzer(codeSamplesDir, []string{}, extensions),
+			analyzer: NewAnalyzer(codeSamplesDir, []string{}, map[string]bool{}, extensions),
 			want: []FileMetadata{
 				{
 					FilePath:  filepath.Join(codeSamplesDir, "index.html"),
@@ -46,7 +47,18 @@ func TestMatchingFiles(t *testing.T) {
 		},
 		{
 			name:     "Should exclude files or dirs without errors",
-			analyzer: NewAnalyzer(codeSamplesDir, []string{filepath.Join(codeSamplesDir, "main.go")}, extensions),
+			analyzer: NewAnalyzer(codeSamplesDir, []string{filepath.Join(codeSamplesDir, "main.go")}, map[string]bool{}, extensions),
+			want: []FileMetadata{
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "index.html"),
+					Extension: ".html",
+					Language:  "HTML",
+				},
+			},
+		},
+		{
+			name:     "Should exclude extensions without errors",
+			analyzer: NewAnalyzer(codeSamplesDir, []string{}, map[string]bool{".go": true}, extensions),
 			want: []FileMetadata{
 				{
 					FilePath:  filepath.Join(codeSamplesDir, "index.html"),

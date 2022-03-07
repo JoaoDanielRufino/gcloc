@@ -21,7 +21,7 @@ func TestNewScanner(t *testing.T) {
 
 func TestScan(t *testing.T) {
 	codeSamplesDir := filepath.Join("..", "..", "test", "fixtures", "code_samples")
-	fileAnalyzer := analyzer.NewAnalyzer(codeSamplesDir, []string{}, extensions)
+	fileAnalyzer := analyzer.NewAnalyzer(codeSamplesDir, []string{}, map[string]bool{}, extensions)
 	scanner := NewScanner(languages)
 
 	files, _ := fileAnalyzer.MatchingFiles()

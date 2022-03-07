@@ -52,15 +52,21 @@ func getParams(cmd *cobra.Command, args []string) (gcloc.Params, error) {
 		return gcloc.Params{}, err
 	}
 
+	excludeExtensions, err := cmd.Flags().GetStringSlice(constants.ExcludeExtensionsFlag)
+	if err != nil {
+		return gcloc.Params{}, err
+	}
+
 	byFile, err := cmd.Flags().GetBool(constants.ByFileFlag)
 	if err != nil {
 		return gcloc.Params{}, err
 	}
 
 	params := gcloc.Params{
-		Path:         pathToScan,
-		ExcludePaths: excludePaths,
-		ByFile:       byFile,
+		Path:              pathToScan,
+		ExcludePaths:      excludePaths,
+		ExcludeExtensions: excludeExtensions,
+		ByFile:            byFile,
 	}
 
 	return params, nil

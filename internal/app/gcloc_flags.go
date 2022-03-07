@@ -14,6 +14,11 @@ var gclocFlags = map[string]flags.Flag{
 		DefaultValue: []string{},
 		Description:  "Exclude directories or files from being scanned",
 	},
+	constants.ExcludeExtensionsFlag: {
+		Kind:         reflect.Slice,
+		DefaultValue: []string{},
+		Description:  "Exclude extensions from being scanned",
+	},
 	constants.ByFileFlag: {
 		Kind:         reflect.Bool,
 		DefaultValue: false,
