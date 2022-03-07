@@ -22,8 +22,8 @@ func NewGClocCmd() *cobra.Command {
 
 	flags.InitFlags(gclocCmd.Flags(), gclocFlags)
 
-	languageCmd := subcommands.NewLanguageCmd()
-	gclocCmd.AddCommand(languageCmd)
+	languagesCmd := subcommands.NewLanguagesCmd()
+	gclocCmd.AddCommand(languagesCmd)
 
 	return gclocCmd
 }

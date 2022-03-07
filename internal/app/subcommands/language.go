@@ -13,14 +13,14 @@ import (
 
 type commandRunnerFunc func(cmd *cobra.Command, args []string)
 
-func NewLanguageCmd() *cobra.Command {
-	languageCmd := &cobra.Command{
+func NewLanguagesCmd() *cobra.Command {
+	languagesCmd := &cobra.Command{
 		Use:   "languages",
 		Short: "Show gcloc supported languages",
 		Run:   run(),
 	}
 
-	return languageCmd
+	return languagesCmd
 }
 
 func run() commandRunnerFunc {
