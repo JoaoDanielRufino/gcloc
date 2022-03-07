@@ -10,9 +10,10 @@ import (
 )
 
 type Params struct {
-	Path         string
-	ExcludePaths []string
-	ByFile       bool
+	Path              string
+	ExcludePaths      []string
+	ExcludeExtensions []string
+	ByFile            bool
 }
 
 type GCloc struct {
@@ -33,6 +34,7 @@ func NewGCloc(params Params, extensions map[string]string, languages language.La
 	analyzer := analyzer.NewAnalyzer(
 		params.Path,
 		excludePaths,
+		getExcludeExtensionsMap(params.ExcludeExtensions),
 		extensions,
 	)
 
@@ -78,4 +80,14 @@ func (gc *GCloc) ChangeExtensions(extensions map[string]string) {
 func (gc *GCloc) ChangeLanguages(languages language.Languages) {
 	gc.supprotedLanguages = languages
 	gc.scanner.SupportedLanguages = languages
+}
+
+func getExcludeExtensionsMap(excludeExtensionsParam []string) map[string]bool {
+	excludeExtensions := make(map[string]bool)
+
+	for _, ex := range excludeExtensionsParam {
+		excludeExtensions[ex] = true
+	}
+
+	return excludeExtensions
 }

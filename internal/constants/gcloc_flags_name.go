@@ -1,6 +1,7 @@
 package constants
 
 const (
-	ExcludePathsFlag = "exclude"
-	ByFileFlag       = "by-file"
+	ExcludePathsFlag      = "exclude"
+	ExcludeExtensionsFlag = "exclude-extensions"
+	ByFileFlag            = "by-file"
 )
