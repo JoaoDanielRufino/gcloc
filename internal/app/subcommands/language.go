@@ -4,10 +4,11 @@ import (
 	"os"
 	"sort"
 
-	"github.com/JoaoDanielRufino/gcloc/internal/constants"
-	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
+
+	"github.com/JoaoDanielRufino/gcloc/internal/constants"
+	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
 )
 
 type commandRunnerFunc func(cmd *cobra.Command, args []string)
