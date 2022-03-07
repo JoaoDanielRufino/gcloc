@@ -16,8 +16,11 @@ func NewGClocCmd() *cobra.Command {
 		Use:     "gcloc",
 		Short:   "GCloc is a simple tool to count lines of code of many programming languages",
 		Version: "1.0.0",
-		Args:    cobra.MaximumNArgs(1),
-		RunE:    run(),
+		CompletionOptions: cobra.CompletionOptions{
+			DisableDefaultCmd: true,
+		},
+		Args: cobra.MaximumNArgs(1),
+		RunE: run(),
 	}
 
 	flags.InitFlags(gclocCmd.Flags(), gclocFlags)
