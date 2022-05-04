@@ -31,7 +31,7 @@ var gclocFlags = map[string]flags.Flag{
 	},
 	constants.OrderByCodeFlag: {
 		Kind:         reflect.Bool,
-		DefaultValue: true,
+		DefaultValue: false,
 		Description:  "Show results ordered by lines of code",
 	},
 	constants.OrderByBlankFlag: {
@@ -48,6 +48,6 @@ var gclocFlags = map[string]flags.Flag{
 		ShortName:    "o",
 		Kind:         reflect.String,
 		DefaultValue: "DESC",
-		Description:  "Sorting order <ASC,DESC>. Default value is DESC",
+		Description:  "Sorting order <ASC,DESC>",
 	},
 }

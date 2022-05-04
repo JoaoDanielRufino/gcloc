@@ -17,15 +17,7 @@ func (p PromptReporter) GenerateReportByLanguage(summary *scanner.Summary) error
 	table.SetBorder(false)
 	table.SetAutoFormatHeaders(false)
 
-	for language, result := range summary.Languages {
-		table.Append([]string{
-			language,
-			strconv.Itoa(result.Lines),
-			strconv.Itoa(result.BlankLines),
-			strconv.Itoa(result.Comments),
-			strconv.Itoa(result.CodeLines),
-		})
-	}
+	table.AppendBulk(summary.OrderedResultByLanguage)
 
 	table.SetFooter([]string{
 		"Total",

@@ -1,6 +1,8 @@
 package gcloc
 
 import (
+	"fmt"
+
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
 	"github.com/JoaoDanielRufino/gcloc/pkg/filesystem"
 	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
@@ -68,6 +70,8 @@ func (gc *GCloc) Run() error {
 
 	summary := gc.scanner.Summary(scanResult)
 
+	gc.sortSummary(summary)
+
 	if gc.params.ByFile {
 		err = gc.reporter.GenerateReportByFile(summary)
 	} else {
@@ -75,6 +79,22 @@ func (gc *GCloc) Run() error {
 	}
 
 	return err
+}
+
+func (gc *GCloc) sortSummary(summary *scanner.Summary) {
+	params := gc.params
+
+	if params.OrderByCode {
+		summary.OrderByCodeLines(params.Order)
+	} else if params.OrderByLang {
+		summary.OrderByLanguage(params.Order)
+	} else if params.OrderByComment {
+		fmt.Println("Order by comment")
+	} else if params.OrderByBlank {
+		fmt.Println("Order by blank lines")
+	} else {
+		summary.OrderByCodeLines(params.Order)
+	}
 }
 
 func (gc *GCloc) ChangeExtensions(extensions map[string]string) {
