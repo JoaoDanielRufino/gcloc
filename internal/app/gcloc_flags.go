@@ -24,4 +24,35 @@ var gclocFlags = map[string]flags.Flag{
 		DefaultValue: false,
 		Description:  "Show result by file",
 	},
+	constants.OrderByLangFlag: {
+		Kind:         reflect.Bool,
+		DefaultValue: false,
+		Description:  "Show results ordered by language",
+	},
+	constants.OrderByCodeFlag: {
+		Kind:         reflect.Bool,
+		DefaultValue: false,
+		Description:  "Show results ordered by lines of code",
+	},
+	constants.OrderByLineFlag: {
+		Kind:         reflect.Bool,
+		DefaultValue: false,
+		Description:  "Show results ordered by lines count",
+	},
+	constants.OrderByBlankFlag: {
+		Kind:         reflect.Bool,
+		DefaultValue: false,
+		Description:  "Show results ordered by blank lines",
+	},
+	constants.OrderByCommentFlag: {
+		Kind:         reflect.Bool,
+		DefaultValue: false,
+		Description:  "Show results ordered by comments",
+	},
+	constants.OrderFlag: {
+		ShortName:    "o",
+		Kind:         reflect.String,
+		DefaultValue: "DESC",
+		Description:  "Sorting order <ASC,DESC>",
+	},
 }

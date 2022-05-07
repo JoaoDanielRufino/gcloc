@@ -4,51 +4,50 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/JoaoDanielRufino/gcloc/pkg/scanner"
+	"github.com/JoaoDanielRufino/gcloc/pkg/sorter"
 	"github.com/olekukonko/tablewriter"
 )
 
 type PromptReporter struct {
 }
 
-func (p PromptReporter) GenerateReportByLanguage(summary *scanner.Summary) error {
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Language", "Lines", "Blank lines", "Comments", "Code lines"})
-	table.SetBorder(false)
-	table.SetAutoFormatHeaders(false)
-
-	for language, result := range summary.Languages {
-		table.Append([]string{
-			language,
-			strconv.Itoa(result.Lines),
-			strconv.Itoa(result.BlankLines),
-			strconv.Itoa(result.Comments),
-			strconv.Itoa(result.CodeLines),
-		})
+func (p PromptReporter) GenerateReportByLanguage(summary *sorter.SortedSummary) error {
+	tableHeader := []string{
+		"Language",
+		"Lines",
+		"Blank lines",
+		"Comments",
+		"Code lines",
 	}
 
-	table.SetFooter([]string{
-		"Total",
-		strconv.Itoa(summary.TotalLines),
-		strconv.Itoa(summary.TotalBlankLines),
-		strconv.Itoa(summary.TotalComments),
-		strconv.Itoa(summary.TotalCodeLines),
-	})
-
-	table.Render()
+	p.printTable(tableHeader, summary)
 
 	return nil
 }
 
-func (p PromptReporter) GenerateReportByFile(summary *scanner.Summary) error {
+func (p PromptReporter) GenerateReportByFile(summary *sorter.SortedSummary) error {
+	tableHeader := []string{
+		"Path",
+		"Lines",
+		"Blank lines",
+		"Comments",
+		"Code lines",
+	}
+
+	p.printTable(tableHeader, summary)
+
+	return nil
+}
+
+func (p PromptReporter) printTable(header []string, summary *sorter.SortedSummary) {
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Path", "Lines", "Blank lines", "Comments", "Code lines"})
+	table.SetHeader(header)
 	table.SetBorder(false)
 	table.SetAutoFormatHeaders(false)
 
-	for _, file := range summary.Files {
+	for _, file := range summary.Results {
 		table.Append([]string{
-			file.Path,
+			file.Name,
 			strconv.Itoa(file.Lines),
 			strconv.Itoa(file.BlankLines),
 			strconv.Itoa(file.Comments),
@@ -65,6 +64,4 @@ func (p PromptReporter) GenerateReportByFile(summary *scanner.Summary) error {
 	})
 
 	table.Render()
-
-	return nil
 }

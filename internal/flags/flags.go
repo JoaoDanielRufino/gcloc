@@ -16,6 +16,8 @@ type Flag struct {
 func InitFlags(flagSet *pflag.FlagSet, flags map[string]Flag) {
 	for flagName, flag := range flags {
 		switch flag.Kind {
+		case reflect.String:
+			flagSet.StringP(flagName, flag.ShortName, flag.DefaultValue.(string), flag.Description)
 		case reflect.Slice:
 			flagSet.StringSliceP(flagName, flag.ShortName, flag.DefaultValue.([]string), flag.Description)
 		case reflect.Bool:

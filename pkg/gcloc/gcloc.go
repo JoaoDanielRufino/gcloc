@@ -7,6 +7,9 @@ import (
 	"github.com/JoaoDanielRufino/gcloc/pkg/reporter"
 	"github.com/JoaoDanielRufino/gcloc/pkg/reporter/prompt"
 	"github.com/JoaoDanielRufino/gcloc/pkg/scanner"
+	"github.com/JoaoDanielRufino/gcloc/pkg/sorter"
+	"github.com/JoaoDanielRufino/gcloc/pkg/sorter/file"
+	languageSorter "github.com/JoaoDanielRufino/gcloc/pkg/sorter/language"
 )
 
 type Params struct {
@@ -14,6 +17,12 @@ type Params struct {
 	ExcludePaths      []string
 	ExcludeExtensions []string
 	ByFile            bool
+	OrderByLang       bool
+	OrderByCode       bool
+	OrderByLine       bool
+	OrderByBlank      bool
+	OrderByComment    bool
+	Order             string
 }
 
 type GCloc struct {
@@ -22,6 +31,7 @@ type GCloc struct {
 	supprotedLanguages  language.Languages
 	analyzer            *analyzer.Analyzer
 	scanner             *scanner.Scanner
+	sorter              sorter.Sorter
 	reporter            reporter.Reporter
 }
 
@@ -40,12 +50,15 @@ func NewGCloc(params Params, extensions map[string]string, languages language.La
 
 	scanner := scanner.NewScanner(languages)
 
+	sorter := getSorter(params.ByFile, params.Order)
+
 	return &GCloc{
 		params:              params,
 		supportedExtensions: extensions,
 		supprotedLanguages:  languages,
 		analyzer:            analyzer,
 		scanner:             scanner,
+		sorter:              sorter,
 		reporter:            prompt.PromptReporter{},
 	}, nil
 }
@@ -63,13 +76,41 @@ func (gc *GCloc) Run() error {
 
 	summary := gc.scanner.Summary(scanResult)
 
+	sortedSummary := gc.sortSummary(summary)
+
 	if gc.params.ByFile {
-		err = gc.reporter.GenerateReportByFile(summary)
+		err = gc.reporter.GenerateReportByFile(sortedSummary)
 	} else {
-		err = gc.reporter.GenerateReportByLanguage(summary)
+		err = gc.reporter.GenerateReportByLanguage(sortedSummary)
 	}
 
 	return err
+}
+
+func (gc *GCloc) sortSummary(summary *scanner.Summary) *sorter.SortedSummary {
+	params := gc.params
+
+	if params.OrderByCode {
+		return gc.sorter.OrderByCodeLines(summary)
+	}
+
+	if params.OrderByLang {
+		return gc.sorter.OrderByLanguage(summary)
+	}
+
+	if params.OrderByLine {
+		return gc.sorter.OrderByLines(summary)
+	}
+
+	if params.OrderByComment {
+		return gc.sorter.OrderByComments(summary)
+	}
+
+	if params.OrderByBlank {
+		return gc.sorter.OrderByBlankLines(summary)
+	}
+
+	return gc.sorter.OrderByCodeLines(summary)
 }
 
 func (gc *GCloc) ChangeExtensions(extensions map[string]string) {
@@ -83,11 +124,23 @@ func (gc *GCloc) ChangeLanguages(languages language.Languages) {
 }
 
 func getExcludeExtensionsMap(excludeExtensionsParam []string) map[string]bool {
-	excludeExtensions := make(map[string]bool)
+	excludeExtensions := map[string]bool{}
 
 	for _, ex := range excludeExtensionsParam {
 		excludeExtensions[ex] = true
 	}
 
 	return excludeExtensions
+}
+
+func getSorter(byFile bool, order string) sorter.Sorter {
+	if byFile {
+		return file.FileSorter{
+			SortOrder: order,
+		}
+	}
+
+	return languageSorter.LanguageSorter{
+		SortOrder: order,
+	}
 }

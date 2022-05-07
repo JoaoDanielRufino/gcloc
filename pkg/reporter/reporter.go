@@ -1,8 +1,8 @@
 package reporter
 
-import "github.com/JoaoDanielRufino/gcloc/pkg/scanner"
+import "github.com/JoaoDanielRufino/gcloc/pkg/sorter"
 
 type Reporter interface {
-	GenerateReportByLanguage(summary *scanner.Summary) error
-	GenerateReportByFile(summary *scanner.Summary) error
+	GenerateReportByLanguage(summary *sorter.SortedSummary) error
+	GenerateReportByFile(summary *sorter.SortedSummary) error
 }
