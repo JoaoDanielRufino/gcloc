@@ -15,4 +15,4 @@ dockers:
   - image_templates:
       - 'joaodanielrufino/gcloc:latest'
       - 'joaodanielrufino/gcloc:{{ .Tag }}'
-    dockerfile: Dockerfile
+    dockerfile: goreleaser.dockerfile
