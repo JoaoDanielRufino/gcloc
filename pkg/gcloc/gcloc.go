@@ -8,8 +8,6 @@ import (
 	"github.com/JoaoDanielRufino/gcloc/pkg/reporter/prompt"
 	"github.com/JoaoDanielRufino/gcloc/pkg/scanner"
 	"github.com/JoaoDanielRufino/gcloc/pkg/sorter"
-	"github.com/JoaoDanielRufino/gcloc/pkg/sorter/file"
-	languageSorter "github.com/JoaoDanielRufino/gcloc/pkg/sorter/language"
 )
 
 type Params struct {
@@ -135,12 +133,8 @@ func getExcludeExtensionsMap(excludeExtensionsParam []string) map[string]bool {
 
 func getSorter(byFile bool, order string) sorter.Sorter {
 	if byFile {
-		return file.FileSorter{
-			SortOrder: order,
-		}
+		return sorter.NewFileSorter(order)
 	}
 
-	return languageSorter.LanguageSorter{
-		SortOrder: order,
-	}
+	return sorter.NewLanguageSorter(order)
 }
