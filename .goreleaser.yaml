@@ -3,6 +3,8 @@ project_name: gcloc
 builds:
   - main: ./cmd/main.go
     binary: gcloc
+    env:
+      - CGO_ENABLED=0
     goos:
       - darwin
       - linux
