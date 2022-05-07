@@ -16,14 +16,12 @@ type fileResult struct {
 }
 
 type Summary struct {
-	Languages               map[string]*languageResult
-	Files                   []fileResult
-	OrderedResultByLanguage [][]string
-	OrderedResultByFile     [][]string
-	TotalLines              int
-	TotalCodeLines          int
-	TotalBlankLines         int
-	TotalComments           int
+	Languages       map[string]*languageResult
+	Files           []fileResult
+	TotalLines      int
+	TotalCodeLines  int
+	TotalBlankLines int
+	TotalComments   int
 }
 
 func (sc *Scanner) Summary(results []scanResult) *Summary {
