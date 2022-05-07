@@ -1,14 +1,14 @@
 package gcloc
 
 import (
-	"fmt"
-
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
 	"github.com/JoaoDanielRufino/gcloc/pkg/filesystem"
 	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
 	"github.com/JoaoDanielRufino/gcloc/pkg/reporter"
 	"github.com/JoaoDanielRufino/gcloc/pkg/reporter/prompt"
 	"github.com/JoaoDanielRufino/gcloc/pkg/scanner"
+	"github.com/JoaoDanielRufino/gcloc/pkg/sorter"
+	languageSorter "github.com/JoaoDanielRufino/gcloc/pkg/sorter/language"
 )
 
 type Params struct {
@@ -18,6 +18,7 @@ type Params struct {
 	ByFile            bool
 	OrderByLang       bool
 	OrderByCode       bool
+	OrderByLine       bool
 	OrderByBlank      bool
 	OrderByComment    bool
 	Order             string
@@ -29,6 +30,7 @@ type GCloc struct {
 	supprotedLanguages  language.Languages
 	analyzer            *analyzer.Analyzer
 	scanner             *scanner.Scanner
+	sorter              sorter.Sorter
 	reporter            reporter.Reporter
 }
 
@@ -47,12 +49,17 @@ func NewGCloc(params Params, extensions map[string]string, languages language.La
 
 	scanner := scanner.NewScanner(languages)
 
+	sorter := languageSorter.LanguageSorter{
+		SortOrder: params.Order,
+	}
+
 	return &GCloc{
 		params:              params,
 		supportedExtensions: extensions,
 		supprotedLanguages:  languages,
 		analyzer:            analyzer,
 		scanner:             scanner,
+		sorter:              sorter,
 		reporter:            prompt.PromptReporter{},
 	}, nil
 }
@@ -70,31 +77,41 @@ func (gc *GCloc) Run() error {
 
 	summary := gc.scanner.Summary(scanResult)
 
-	gc.sortSummary(summary)
+	sortedSummary := gc.sortSummary(summary)
 
 	if gc.params.ByFile {
-		err = gc.reporter.GenerateReportByFile(summary)
+		err = gc.reporter.GenerateReportByFile(sortedSummary)
 	} else {
-		err = gc.reporter.GenerateReportByLanguage(summary)
+		err = gc.reporter.GenerateReportByLanguage(sortedSummary)
 	}
 
 	return err
 }
 
-func (gc *GCloc) sortSummary(summary *scanner.Summary) {
+func (gc *GCloc) sortSummary(summary *scanner.Summary) *sorter.SortedSummary {
 	params := gc.params
 
 	if params.OrderByCode {
-		summary.OrderByCodeLines(params.Order)
-	} else if params.OrderByLang {
-		summary.OrderByLanguage(params.Order)
-	} else if params.OrderByComment {
-		fmt.Println("Order by comment")
-	} else if params.OrderByBlank {
-		fmt.Println("Order by blank lines")
-	} else {
-		summary.OrderByCodeLines(params.Order)
+		return gc.sorter.OrderByCodeLines(summary)
 	}
+
+	if params.OrderByLang {
+		return gc.sorter.OrderByLanguage(summary)
+	}
+
+	if params.OrderByLine {
+		return gc.sorter.OrderByLines(summary)
+	}
+
+	if params.OrderByComment {
+		return gc.sorter.OrderByComments(summary)
+	}
+
+	if params.OrderByBlank {
+		return gc.sorter.OrderByBlankLines(summary)
+	}
+
+	return gc.sorter.OrderByCodeLines(summary)
 }
 
 func (gc *GCloc) ChangeExtensions(extensions map[string]string) {

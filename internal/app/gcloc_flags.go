@@ -34,6 +34,11 @@ var gclocFlags = map[string]flags.Flag{
 		DefaultValue: false,
 		Description:  "Show results ordered by lines of code",
 	},
+	constants.OrderByLineFlag: {
+		Kind:         reflect.Bool,
+		DefaultValue: false,
+		Description:  "Show results ordered by lines count",
+	},
 	constants.OrderByBlankFlag: {
 		Kind:         reflect.Bool,
 		DefaultValue: false,
