@@ -1,0 +1,18 @@
+project_name: gcloc
+
+builds:
+  - main: ./cmd/main.go
+    binary: gcloc
+    goos:
+      - darwin
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm64
+
+dockers:
+  - image_templates:
+      - 'joaodanielrufino/gcloc:latest'
+      - 'joaodanielrufino/gcloc:{{ .Tag }}'
+    dockerfile: Dockerfile
