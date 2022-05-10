@@ -14,7 +14,7 @@ builds:
       - arm64
 archives:
   - builds:
-      gcloc
+      - gcloc
     format_overrides:
       - goos: windows
         format: zip
