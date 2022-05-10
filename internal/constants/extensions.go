@@ -14,7 +14,7 @@ var Extensions = map[string]string{
 	".js":      "JavaScript",
 	".jsx":     "JavaScript",
 	".php":     "PHP",
-	".pl":      "Prolog",
+	".pl":      "Perl",
 	".py":      "Python",
 	".ts":      "TypeScript",
 	".tsx":     "TypeScript",

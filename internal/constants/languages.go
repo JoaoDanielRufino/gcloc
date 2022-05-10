@@ -47,9 +47,9 @@ var Languages = language.Languages{
 		LineComments:      []string{"//", "#"},
 		MultiLineComments: [][]string{{"/*", "*/"}},
 	},
-	"Prolog": {
-		LineComments:      []string{"%"},
-		MultiLineComments: [][]string{},
+	"Perl": {
+		LineComments:      []string{"#"},
+		MultiLineComments: [][]string{{"=", "=cut"}},
 	},
 	"Python": {
 		LineComments:      []string{"#"},
