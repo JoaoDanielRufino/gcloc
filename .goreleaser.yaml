@@ -12,6 +12,12 @@ builds:
     goarch:
       - amd64
       - arm64
+archives:
+  - builds:
+      gcloc
+    format_overrides:
+      - goos: windows
+        format: zip
 
 dockers:
   - image_templates:
