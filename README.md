@@ -95,7 +95,7 @@ $ gcloc languages
   JavaScript |  //             |  /* */
   Makefile   |  #              |
   PHP        |  // #           |  /* */
-  Prolog     |  %              |
+  Perl       |  #              |  = =cut
   Python     |  #              |  """ """
   TypeScript |  //             |  /* */
   YAML       |  #              |
