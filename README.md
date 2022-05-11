@@ -4,7 +4,7 @@ A cli written in Go inspired by [cloc](https://github.com/AlDanial/cloc) to coun
 
 ## Installation
 
-You can install from the stable release clicking [here](https://github.com/JoaoDanielRufino/gcloc/releases/latest)
+You can install from the stable release by clicking [here](https://github.com/JoaoDanielRufino/gcloc/releases/latest)
 
 ## Usage
 
@@ -77,7 +77,7 @@ Use "gcloc [command] --help" for more information about a command.
 
 ## Supported languages
 
-To show all supported languages use the subcomand `languages`
+To show all supported languages use the subcommand `languages`
 
 ```
 $ gcloc languages
