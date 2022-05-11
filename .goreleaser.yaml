@@ -1,7 +1,7 @@
 project_name: gcloc
 
 builds:
-  - main: ./cmd/main.go
+  - main: ./cmd/gcloc/main.go
     binary: gcloc
     env:
       - CGO_ENABLED=0
