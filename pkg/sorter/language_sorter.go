@@ -36,6 +36,8 @@ func (l LanguageSorter) OrderByLanguage(summary *scanner.Summary) *SortedSummary
 
 	return &SortedSummary{
 		Results:         results,
+		FilesByLanguage: summary.FilesByLanguage,
+		TotalFiles:      summary.TotalFiles,
 		TotalLines:      summary.TotalLines,
 		TotalCodeLines:  summary.TotalCodeLines,
 		TotalBlankLines: summary.TotalBlankLines,
@@ -50,6 +52,8 @@ func (l LanguageSorter) OrderByCodeLines(summary *scanner.Summary) *SortedSummar
 
 	return &SortedSummary{
 		Results:         results,
+		FilesByLanguage: summary.FilesByLanguage,
+		TotalFiles:      summary.TotalFiles,
 		TotalLines:      summary.TotalLines,
 		TotalCodeLines:  summary.TotalCodeLines,
 		TotalBlankLines: summary.TotalBlankLines,
@@ -64,6 +68,8 @@ func (l LanguageSorter) OrderByLines(summary *scanner.Summary) *SortedSummary {
 
 	return &SortedSummary{
 		Results:         results,
+		FilesByLanguage: summary.FilesByLanguage,
+		TotalFiles:      summary.TotalFiles,
 		TotalLines:      summary.TotalLines,
 		TotalCodeLines:  summary.TotalCodeLines,
 		TotalBlankLines: summary.TotalBlankLines,
@@ -78,6 +84,8 @@ func (l LanguageSorter) OrderByComments(summary *scanner.Summary) *SortedSummary
 
 	return &SortedSummary{
 		Results:         results,
+		FilesByLanguage: summary.FilesByLanguage,
+		TotalFiles:      summary.TotalFiles,
 		TotalLines:      summary.TotalLines,
 		TotalCodeLines:  summary.TotalCodeLines,
 		TotalBlankLines: summary.TotalBlankLines,
@@ -92,6 +100,8 @@ func (l LanguageSorter) OrderByBlankLines(summary *scanner.Summary) *SortedSumma
 
 	return &SortedSummary{
 		Results:         results,
+		FilesByLanguage: summary.FilesByLanguage,
+		TotalFiles:      summary.TotalFiles,
 		TotalLines:      summary.TotalLines,
 		TotalCodeLines:  summary.TotalCodeLines,
 		TotalBlankLines: summary.TotalBlankLines,
