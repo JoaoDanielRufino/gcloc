@@ -8,7 +8,7 @@ RUN go mod download -x
 
 COPY . .
 
-RUN go build -o bin/gcloc cmd/main.go
+RUN go build -o bin/gcloc cmd/gcloc/main.go
 
 FROM alpine:3.15.0
 
