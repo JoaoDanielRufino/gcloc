@@ -12,17 +12,15 @@ type PromptReporter struct {
 }
 
 func (p PromptReporter) GenerateReportByLanguage(summary *sorter.SortedSummary) error {
-	tableHeader := []string{
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{
 		"Language",
 		"Files",
 		"Lines",
 		"Blank lines",
 		"Comments",
 		"Code lines",
-	}
-
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader(tableHeader)
+	})
 	table.SetBorder(false)
 	table.SetAutoFormatHeaders(false)
 
@@ -52,22 +50,14 @@ func (p PromptReporter) GenerateReportByLanguage(summary *sorter.SortedSummary) 
 }
 
 func (p PromptReporter) GenerateReportByFile(summary *sorter.SortedSummary) error {
-	tableHeader := []string{
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{
 		"Path",
 		"Lines",
 		"Blank lines",
 		"Comments",
 		"Code lines",
-	}
-
-	p.printTable(tableHeader, summary)
-
-	return nil
-}
-
-func (p PromptReporter) printTable(header []string, summary *sorter.SortedSummary) {
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader(header)
+	})
 	table.SetBorder(false)
 	table.SetAutoFormatHeaders(false)
 
@@ -90,4 +80,6 @@ func (p PromptReporter) printTable(header []string, summary *sorter.SortedSummar
 	})
 
 	table.Render()
+
+	return nil
 }
