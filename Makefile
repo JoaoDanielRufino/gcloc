@@ -1,7 +1,7 @@
 .PHONY:build
 build:
 	@echo "building the gcloc executable"
-	go build -o bin/gcloc cmd/main.go
+	go build -o bin/gcloc cmd/gcloc/main.go
 	@echo "executable created bin/gcloc"
 
 .PHONY:clean
