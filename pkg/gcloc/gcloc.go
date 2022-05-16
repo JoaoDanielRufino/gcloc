@@ -16,6 +16,7 @@ type Params struct {
 	ExcludeExtensions []string
 	ByFile            bool
 	OrderByLang       bool
+	OrderByFile       bool
 	OrderByCode       bool
 	OrderByLine       bool
 	OrderByBlank      bool
@@ -106,6 +107,12 @@ func (gc *GCloc) sortSummary(summary *scanner.Summary) *sorter.SortedSummary {
 
 	if params.OrderByBlank {
 		return gc.sorter.OrderByBlankLines(summary)
+	}
+
+	if params.OrderByFile {
+		if languageSorter, ok := gc.sorter.(sorter.LanguageSorter); ok {
+			return languageSorter.OrderByFiles(summary)
+		}
 	}
 
 	return gc.sorter.OrderByCodeLines(summary)

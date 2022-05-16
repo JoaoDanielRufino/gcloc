@@ -18,6 +18,8 @@ type fileResult struct {
 type Summary struct {
 	Languages       map[string]*languageResult
 	Files           []fileResult
+	FilesByLanguage map[string]int
+	TotalFiles      int
 	TotalLines      int
 	TotalCodeLines  int
 	TotalBlankLines int
@@ -25,16 +27,21 @@ type Summary struct {
 }
 
 func (sc *Scanner) Summary(results []scanResult) *Summary {
-	summary := &Summary{Languages: make(map[string]*languageResult)}
+	summary := &Summary{
+		Languages:       make(map[string]*languageResult),
+		FilesByLanguage: make(map[string]int),
+		TotalFiles:      len(results),
+	}
 
 	for _, result := range results {
-		if value, ok := summary.Languages[result.Metadata.Language]; ok {
+		language := result.Metadata.Language
+		if value, ok := summary.Languages[language]; ok {
 			value.Lines += result.Lines
 			value.CodeLines += result.CodeLines
 			value.BlankLines += result.BlankLines
 			value.Comments += result.Comments
 		} else {
-			summary.Languages[result.Metadata.Language] = &languageResult{
+			summary.Languages[language] = &languageResult{
 				Lines:      result.Lines,
 				CodeLines:  result.CodeLines,
 				BlankLines: result.BlankLines,
@@ -49,6 +56,7 @@ func (sc *Scanner) Summary(results []scanResult) *Summary {
 			BlankLines: result.BlankLines,
 			Comments:   result.Comments,
 		})
+		summary.FilesByLanguage[language]++
 		summary.TotalLines += result.Lines
 		summary.TotalCodeLines += result.CodeLines
 		summary.TotalBlankLines += result.BlankLines

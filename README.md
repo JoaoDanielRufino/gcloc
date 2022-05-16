@@ -12,29 +12,29 @@ You can install from the stable release by clicking [here](https://github.com/Jo
 
 ```
 $ gcloc .
-  Language | Lines | Blank lines | Comments | Code lines
------------+-------+-------------+----------+-------------
-  Golang   |  1503 |         248 |       12 |       1243
-  HTML     |   576 |          82 |       16 |        478
-  YAML     |   108 |           8 |        0 |        100
-  Makefile |    22 |           3 |        0 |         19
------------+-------+-------------+----------+-------------
-   Total   | 2209  |     341     |    28    |    1840
------------+-------+-------------+----------+-------------
+  Language | Files | Lines | Blank lines | Comments | Code lines
+-----------+-------+-------+-------------+----------+-------------
+  Golang   |    26 |  1588 |         253 |       12 |       1323
+  HTML     |     2 |   576 |          82 |       16 |        478
+  YAML     |     4 |   108 |           8 |        0 |        100
+  Makefile |     1 |    22 |           3 |        0 |         19
+-----------+-------+-------+-------------+----------+-------------
+   Total   |  33   | 2294  |     346     |    28    |    1920
+-----------+-------+-------+-------------+----------+-------------
 ```
 
 ### Excluding directories
 
 ```
 $ gcloc jazzy-bot -e=node_modules --order-by-comment
-   Language  | Lines | Blank lines | Comments | Code lines
--------------+-------+-------------+----------+-------------
-  YAML       |    55 |           8 |        2 |         45
-  JavaScript |  1181 |           0 |        0 |       1181
-  TypeScript |  1180 |         189 |        0 |        991
--------------+-------+-------------+----------+-------------
-    Total    | 2416  |     197     |    2     |    2217
--------------+-------+-------------+----------+-------------
+   Language  | Files | Lines | Blank lines | Comments | Code lines
+-------------+-------+-------+-------------+----------+-------------
+  YAML       |     1 |    55 |           8 |        2 |         45
+  JavaScript |    26 |  1181 |           0 |        0 |       1181
+  TypeScript |    24 |  1180 |         189 |        0 |        991
+-------------+-------+-------+-------------+----------+-------------
+    Total    |  51   | 2416  |     197     |    2     |    2217
+-------------+-------+-------+-------------+----------+-------------
 ```
 
 ### Via Docker
@@ -68,6 +68,7 @@ Flags:
       --order-by-blank               Show results ordered by blank lines
       --order-by-code                Show results ordered by lines of code
       --order-by-comment             Show results ordered by comments
+      --order-by-file                Show results ordered by file count
       --order-by-lang                Show results ordered by language
       --order-by-line                Show results ordered by lines count
   -v, --version                      version for gcloc

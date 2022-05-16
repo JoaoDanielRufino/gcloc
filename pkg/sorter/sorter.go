@@ -16,6 +16,8 @@ type Result struct {
 
 type SortedSummary struct {
 	Results         []Result
+	FilesByLanguage map[string]int
+	TotalFiles      int
 	TotalLines      int
 	TotalCodeLines  int
 	TotalBlankLines int

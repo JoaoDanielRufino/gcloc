@@ -29,6 +29,11 @@ var gclocFlags = map[string]flags.Flag{
 		DefaultValue: false,
 		Description:  "Show results ordered by language",
 	},
+	constants.OrderByFileFlag: {
+		Kind:         reflect.Bool,
+		DefaultValue: false,
+		Description:  "Show results ordered by file count",
+	},
 	constants.OrderByCodeFlag: {
 		Kind:         reflect.Bool,
 		DefaultValue: false,
