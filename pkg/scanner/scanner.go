@@ -30,19 +30,7 @@ func NewScanner(languages language.Languages) *Scanner {
 
 func (sc *Scanner) Scan(files []analyzer.FileMetadata) ([]scanResult, error) {
 	var results []scanResult
-	progress := progressbar.NewOptions(
-		len(files),
-		progressbar.OptionSetDescription("Scanning files..."),
-		progressbar.OptionShowBytes(true),
-		progressbar.OptionShowCount(),
-		progressbar.OptionSetTheme(progressbar.Theme{
-			Saucer:        "=",
-			SaucerHead:    ">",
-			SaucerPadding: " ",
-			BarStart:      "[",
-			BarEnd:        "]",
-		}),
-	)
+	progress := sc.createProgressbar(len(files))
 
 	for _, file := range files {
 		result, err := sc.scanFile(file)
@@ -53,7 +41,24 @@ func (sc *Scanner) Scan(files []analyzer.FileMetadata) ([]scanResult, error) {
 		results = append(results, result)
 	}
 
-	return results, progress.Clear()
+	return results, nil
+}
+
+func (sc *Scanner) createProgressbar(max int) *progressbar.ProgressBar {
+	return progressbar.NewOptions(
+		max,
+		progressbar.OptionSetDescription("Scanning files..."),
+		progressbar.OptionShowBytes(true),
+		progressbar.OptionShowCount(),
+		progressbar.OptionClearOnFinish(),
+		progressbar.OptionSetTheme(progressbar.Theme{
+			Saucer:        "=",
+			SaucerHead:    ">",
+			SaucerPadding: " ",
+			BarStart:      "[",
+			BarEnd:        "]",
+		}),
+	)
 }
 
 func (sc *Scanner) scanFile(file analyzer.FileMetadata) (scanResult, error) {
