@@ -6,11 +6,12 @@ import (
 
 	"github.com/JoaoDanielRufino/gcloc/internal/constants"
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
+	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
 	"github.com/stretchr/testify/require"
 )
 
-var extensions = constants.Extensions
 var languages = constants.Languages
+var extensions = getExtensionsMap(languages)
 
 func TestNewScanner(t *testing.T) {
 	expected := &Scanner{SupportedLanguages: languages}
@@ -46,4 +47,16 @@ func TestScan(t *testing.T) {
 	result, err := scanner.Scan(files)
 	require.NoError(t, err)
 	require.Equal(t, expected, result)
+}
+
+func getExtensionsMap(languages language.Languages) map[string]string {
+	extensions := map[string]string{}
+
+	for language, languageInfo := range languages {
+		for _, extension := range languageInfo.Extensions {
+			extensions[extension] = language
+		}
+	}
+
+	return extensions
 }

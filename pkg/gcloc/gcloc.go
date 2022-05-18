@@ -34,11 +34,13 @@ type GCloc struct {
 	reporter            reporter.Reporter
 }
 
-func NewGCloc(params Params, extensions map[string]string, languages language.Languages) (*GCloc, error) {
+func NewGCloc(params Params, languages language.Languages) (*GCloc, error) {
 	excludePaths, err := filesystem.GetExcludePaths(params.Path, params.ExcludePaths)
 	if err != nil {
 		return &GCloc{}, err
 	}
+
+	extensions := getExtensionsMap(languages)
 
 	analyzer := analyzer.NewAnalyzer(
 		params.Path,
@@ -126,6 +128,18 @@ func (gc *GCloc) ChangeExtensions(extensions map[string]string) {
 func (gc *GCloc) ChangeLanguages(languages language.Languages) {
 	gc.supprotedLanguages = languages
 	gc.scanner.SupportedLanguages = languages
+}
+
+func getExtensionsMap(languages language.Languages) map[string]string {
+	extensions := map[string]string{}
+
+	for language, languageInfo := range languages {
+		for _, extension := range languageInfo.Extensions {
+			extensions[extension] = language
+		}
+	}
+
+	return extensions
 }
 
 func getExcludeExtensionsMap(excludeExtensionsParam []string) map[string]bool {
