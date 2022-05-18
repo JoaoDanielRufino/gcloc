@@ -25,20 +25,20 @@ type Params struct {
 }
 
 type GCloc struct {
-	params              Params
-	supportedExtensions map[string]string
-	supprotedLanguages  language.Languages
-	analyzer            *analyzer.Analyzer
-	scanner             *scanner.Scanner
-	sorter              sorter.Sorter
-	reporter            reporter.Reporter
+	params   Params
+	analyzer *analyzer.Analyzer
+	scanner  *scanner.Scanner
+	sorter   sorter.Sorter
+	reporter reporter.Reporter
 }
 
-func NewGCloc(params Params, extensions map[string]string, languages language.Languages) (*GCloc, error) {
+func NewGCloc(params Params, languages language.Languages) (*GCloc, error) {
 	excludePaths, err := filesystem.GetExcludePaths(params.Path, params.ExcludePaths)
 	if err != nil {
 		return &GCloc{}, err
 	}
+
+	extensions := getExtensionsMap(languages)
 
 	analyzer := analyzer.NewAnalyzer(
 		params.Path,
@@ -52,13 +52,11 @@ func NewGCloc(params Params, extensions map[string]string, languages language.La
 	sorter := getSorter(params.ByFile, params.Order)
 
 	return &GCloc{
-		params:              params,
-		supportedExtensions: extensions,
-		supprotedLanguages:  languages,
-		analyzer:            analyzer,
-		scanner:             scanner,
-		sorter:              sorter,
-		reporter:            prompt.PromptReporter{},
+		params:   params,
+		analyzer: analyzer,
+		scanner:  scanner,
+		sorter:   sorter,
+		reporter: prompt.PromptReporter{},
 	}, nil
 }
 
@@ -118,14 +116,22 @@ func (gc *GCloc) sortSummary(summary *scanner.Summary) *sorter.SortedSummary {
 	return gc.sorter.OrderByCodeLines(summary)
 }
 
-func (gc *GCloc) ChangeExtensions(extensions map[string]string) {
-	gc.supportedExtensions = extensions
+func (gc *GCloc) ChangeLanguages(languages language.Languages) {
+	extensions := getExtensionsMap(languages)
+	gc.scanner.SupportedLanguages = languages
 	gc.analyzer.SupportedExtensions = extensions
 }
 
-func (gc *GCloc) ChangeLanguages(languages language.Languages) {
-	gc.supprotedLanguages = languages
-	gc.scanner.SupportedLanguages = languages
+func getExtensionsMap(languages language.Languages) map[string]string {
+	extensions := map[string]string{}
+
+	for language, languageInfo := range languages {
+		for _, extension := range languageInfo.Extensions {
+			extensions[extension] = language
+		}
+	}
+
+	return extensions
 }
 
 func getExcludeExtensionsMap(excludeExtensionsParam []string) map[string]bool {

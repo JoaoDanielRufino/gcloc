@@ -5,10 +5,11 @@ import (
 	"testing"
 
 	"github.com/JoaoDanielRufino/gcloc/internal/constants"
+	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
 	"github.com/stretchr/testify/require"
 )
 
-var extensions = constants.Extensions
+var extensions = getExtensionsMap(constants.Languages)
 
 func TestNewAnalyzer(t *testing.T) {
 	expected := &Analyzer{
@@ -76,4 +77,16 @@ func TestMatchingFiles(t *testing.T) {
 			require.Equal(t, tt.want, files)
 		})
 	}
+}
+
+func getExtensionsMap(languages language.Languages) map[string]string {
+	extensions := map[string]string{}
+
+	for language, languageInfo := range languages {
+		for _, extension := range languageInfo.Extensions {
+			extensions[extension] = language
+		}
+	}
+
+	return extensions
 }
