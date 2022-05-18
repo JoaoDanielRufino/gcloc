@@ -7,6 +7,7 @@ import (
 
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
 	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
+	"github.com/schollz/progressbar/v3"
 )
 
 type Scanner struct {
@@ -29,17 +30,35 @@ func NewScanner(languages language.Languages) *Scanner {
 
 func (sc *Scanner) Scan(files []analyzer.FileMetadata) ([]scanResult, error) {
 	var results []scanResult
+	progress := sc.createProgressbar(len(files))
 
 	for _, file := range files {
 		result, err := sc.scanFile(file)
 		if err != nil {
 			return results, err
 		}
-
+		progress.Add(1)
 		results = append(results, result)
 	}
 
 	return results, nil
+}
+
+func (sc *Scanner) createProgressbar(max int) *progressbar.ProgressBar {
+	return progressbar.NewOptions(
+		max,
+		progressbar.OptionSetDescription("Scanning files..."),
+		progressbar.OptionShowBytes(true),
+		progressbar.OptionShowCount(),
+		progressbar.OptionClearOnFinish(),
+		progressbar.OptionSetTheme(progressbar.Theme{
+			Saucer:        "=",
+			SaucerHead:    ">",
+			SaucerPadding: " ",
+			BarStart:      "[",
+			BarEnd:        "]",
+		}),
+	)
 }
 
 func (sc *Scanner) scanFile(file analyzer.FileMetadata) (scanResult, error) {
@@ -54,8 +73,8 @@ func (sc *Scanner) scanFile(file analyzer.FileMetadata) (scanResult, error) {
 	defer f.Close()
 
 	fileScanner := bufio.NewScanner(f)
-	buffer := make([]byte, 64*1024)
-	fileScanner.Buffer(buffer, 1024*1024)
+	buffer := make([]byte, 128*1024)
+	fileScanner.Buffer(buffer, 4096*1024)
 	for fileScanner.Scan() {
 		line := strings.TrimSpace(fileScanner.Text())
 
