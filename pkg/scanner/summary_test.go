@@ -31,7 +31,7 @@ func TestSummary(t *testing.T) {
 				},
 			},
 			want: &Summary{
-				Languages: map[string]*languageResult{
+				Languages: map[string]*LanguageResult{
 					"Golang": {
 						Lines:      167,
 						CodeLines:  137,
@@ -39,7 +39,7 @@ func TestSummary(t *testing.T) {
 						Comments:   16,
 					},
 				},
-				Files: []fileResult{
+				Files: []FileResult{
 					{
 						Path:       "/tmp/main.go",
 						Lines:      167,
@@ -96,7 +96,7 @@ func TestSummary(t *testing.T) {
 				},
 			},
 			want: &Summary{
-				Languages: map[string]*languageResult{
+				Languages: map[string]*LanguageResult{
 					"Golang": {
 						Lines:      267,
 						CodeLines:  217,
@@ -110,7 +110,7 @@ func TestSummary(t *testing.T) {
 						Comments:   2,
 					},
 				},
-				Files: []fileResult{
+				Files: []FileResult{
 					{
 						Path:       "/tmp/main.go",
 						Lines:      167,

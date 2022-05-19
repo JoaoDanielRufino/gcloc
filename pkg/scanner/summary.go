@@ -1,13 +1,13 @@
 package scanner
 
-type languageResult struct {
+type LanguageResult struct {
 	Lines      int
 	CodeLines  int
 	BlankLines int
 	Comments   int
 }
 
-type fileResult struct {
+type FileResult struct {
 	Path       string
 	Lines      int
 	CodeLines  int
@@ -16,8 +16,8 @@ type fileResult struct {
 }
 
 type Summary struct {
-	Languages       map[string]*languageResult
-	Files           []fileResult
+	Languages       map[string]*LanguageResult
+	Files           []FileResult
 	FilesByLanguage map[string]int
 	TotalFiles      int
 	TotalLines      int
@@ -28,7 +28,7 @@ type Summary struct {
 
 func (sc *Scanner) Summary(results []scanResult) *Summary {
 	summary := &Summary{
-		Languages:       make(map[string]*languageResult),
+		Languages:       make(map[string]*LanguageResult),
 		FilesByLanguage: make(map[string]int),
 		TotalFiles:      len(results),
 	}
@@ -41,7 +41,7 @@ func (sc *Scanner) Summary(results []scanResult) *Summary {
 			value.BlankLines += result.BlankLines
 			value.Comments += result.Comments
 		} else {
-			summary.Languages[language] = &languageResult{
+			summary.Languages[language] = &LanguageResult{
 				Lines:      result.Lines,
 				CodeLines:  result.CodeLines,
 				BlankLines: result.BlankLines,
@@ -49,7 +49,7 @@ func (sc *Scanner) Summary(results []scanResult) *Summary {
 			}
 		}
 
-		summary.Files = append(summary.Files, fileResult{
+		summary.Files = append(summary.Files, FileResult{
 			Path:       result.Metadata.FilePath,
 			Lines:      result.Lines,
 			CodeLines:  result.CodeLines,
