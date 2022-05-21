@@ -15,7 +15,7 @@ func NewGClocCmd() *cobra.Command {
 	gclocCmd := &cobra.Command{
 		Use:     "gcloc",
 		Short:   "GCloc is a simple tool to count lines of code of many programming languages",
-		Version: "1.1.1",
+		Version: constants.Version,
 		CompletionOptions: cobra.CompletionOptions{
 			DisableDefaultCmd: true,
 		},
