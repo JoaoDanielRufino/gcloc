@@ -15,7 +15,7 @@ func NewGClocCmd() *cobra.Command {
 	gclocCmd := &cobra.Command{
 		Use:     "gcloc",
 		Short:   "GCloc is a simple tool to count lines of code of many programming languages",
-		Version: "1.0.0",
+		Version: "1.1.1",
 		CompletionOptions: cobra.CompletionOptions{
 			DisableDefaultCmd: true,
 		},
@@ -54,6 +54,11 @@ func getParams(cmd *cobra.Command, args []string) (gcloc.Params, error) {
 		pathToScan = args[0]
 	}
 
+	byFile, err := cmd.Flags().GetBool(constants.ByFileFlag)
+	if err != nil {
+		return gcloc.Params{}, err
+	}
+
 	excludePaths, err := cmd.Flags().GetStringSlice(constants.ExcludePathsFlag)
 	if err != nil {
 		return gcloc.Params{}, err
@@ -64,7 +69,7 @@ func getParams(cmd *cobra.Command, args []string) (gcloc.Params, error) {
 		return gcloc.Params{}, err
 	}
 
-	byFile, err := cmd.Flags().GetBool(constants.ByFileFlag)
+	includeExtensions, err := cmd.Flags().GetStringSlice(constants.IncludeExtensionsFlag)
 	if err != nil {
 		return gcloc.Params{}, err
 	}
@@ -106,9 +111,10 @@ func getParams(cmd *cobra.Command, args []string) (gcloc.Params, error) {
 
 	params := gcloc.Params{
 		Path:              pathToScan,
+		ByFile:            byFile,
 		ExcludePaths:      excludePaths,
 		ExcludeExtensions: excludeExtensions,
-		ByFile:            byFile,
+		IncludeExtensions: includeExtensions,
 		OrderByLang:       orderByLang,
 		OrderByFile:       orderByFile,
 		OrderByCode:       orderByCode,

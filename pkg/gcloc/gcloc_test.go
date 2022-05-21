@@ -36,6 +36,7 @@ func TestNewGCloc(t *testing.T) {
 					filepath.Join("..", "..", "test", "fixtures", "code_samples"),
 					nil,
 					map[string]bool{},
+					map[string]bool{},
 					getExtensionsMap(constants.Languages),
 				),
 				scanner:  scanner.NewScanner(constants.Languages),
@@ -63,6 +64,7 @@ func TestNewGCloc(t *testing.T) {
 					filepath.Join("..", "..", "test", "fixtures", "code_samples"),
 					nil,
 					map[string]bool{".go": true},
+					map[string]bool{},
 					getExtensionsMap(constants.Languages),
 				),
 				scanner:  scanner.NewScanner(constants.Languages),
@@ -76,6 +78,7 @@ func TestNewGCloc(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := NewGCloc(tt.params, tt.languages)
 			require.NoError(t, err)
+			require.NotNil(t, got)
 			require.Equal(t, tt.want, got)
 		})
 	}
