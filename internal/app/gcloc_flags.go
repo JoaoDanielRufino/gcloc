@@ -8,6 +8,11 @@ import (
 )
 
 var gclocFlags = map[string]flags.Flag{
+	constants.ByFileFlag: {
+		Kind:         reflect.Bool,
+		DefaultValue: false,
+		Description:  "Show result by file",
+	},
 	constants.ExcludePathsFlag: {
 		ShortName:    "e",
 		Kind:         reflect.Slice,
@@ -19,10 +24,10 @@ var gclocFlags = map[string]flags.Flag{
 		DefaultValue: []string{},
 		Description:  "Exclude extensions from being scanned",
 	},
-	constants.ByFileFlag: {
-		Kind:         reflect.Bool,
-		DefaultValue: false,
-		Description:  "Show result by file",
+	constants.IncludeExtensionsFlag: {
+		Kind:         reflect.Slice,
+		DefaultValue: []string{},
+		Description:  "Include the extensions to be scanned",
 	},
 	constants.OrderByLangFlag: {
 		Kind:         reflect.Bool,

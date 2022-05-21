@@ -64,6 +64,7 @@ Flags:
   -e, --exclude strings              Exclude directories or files from being scanned
       --exclude-extensions strings   Exclude extensions from being scanned
   -h, --help                         help for gcloc
+      --include-extensions strings   Include the extensions to be scanned
   -o, --order string                 Sorting order <ASC,DESC> (default "DESC")
       --order-by-blank               Show results ordered by blank lines
       --order-by-code                Show results ordered by lines of code

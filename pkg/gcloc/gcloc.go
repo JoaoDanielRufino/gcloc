@@ -8,13 +8,15 @@ import (
 	"github.com/JoaoDanielRufino/gcloc/pkg/reporter/prompt"
 	"github.com/JoaoDanielRufino/gcloc/pkg/scanner"
 	"github.com/JoaoDanielRufino/gcloc/pkg/sorter"
+	"github.com/JoaoDanielRufino/gcloc/pkg/utils"
 )
 
 type Params struct {
 	Path              string
+	ByFile            bool
 	ExcludePaths      []string
 	ExcludeExtensions []string
-	ByFile            bool
+	IncludeExtensions []string
 	OrderByLang       bool
 	OrderByFile       bool
 	OrderByCode       bool
@@ -35,16 +37,15 @@ type GCloc struct {
 func NewGCloc(params Params, languages language.Languages) (*GCloc, error) {
 	excludePaths, err := filesystem.GetExcludePaths(params.Path, params.ExcludePaths)
 	if err != nil {
-		return &GCloc{}, err
+		return nil, err
 	}
-
-	extensions := getExtensionsMap(languages)
 
 	analyzer := analyzer.NewAnalyzer(
 		params.Path,
 		excludePaths,
-		getExcludeExtensionsMap(params.ExcludeExtensions),
-		extensions,
+		utils.ConvertToMap(params.ExcludeExtensions),
+		utils.ConvertToMap(params.IncludeExtensions),
+		getExtensionsMap(languages),
 	)
 
 	scanner := scanner.NewScanner(languages)
@@ -132,16 +133,6 @@ func getExtensionsMap(languages language.Languages) map[string]string {
 	}
 
 	return extensions
-}
-
-func getExcludeExtensionsMap(excludeExtensionsParam []string) map[string]bool {
-	excludeExtensions := map[string]bool{}
-
-	for _, ex := range excludeExtensionsParam {
-		excludeExtensions[ex] = true
-	}
-
-	return excludeExtensions
 }
 
 func getSorter(byFile bool, order string) sorter.Sorter {

@@ -11,6 +11,7 @@ type Analyzer struct {
 	path                string
 	excludePaths        []string
 	excludeExtensions   map[string]bool
+	includeExtensions   map[string]bool
 }
 
 type FileMetadata struct {
@@ -23,6 +24,7 @@ func NewAnalyzer(
 	path string,
 	excludePaths []string,
 	excludeExtensions map[string]bool,
+	includeExtensions map[string]bool,
 	extensions map[string]string,
 ) *Analyzer {
 	return &Analyzer{
@@ -30,6 +32,7 @@ func NewAnalyzer(
 		path:                path,
 		excludePaths:        excludePaths,
 		excludeExtensions:   excludeExtensions,
+		includeExtensions:   includeExtensions,
 	}
 }
 
@@ -72,6 +75,11 @@ func (a *Analyzer) getFileExtension(path string) string {
 }
 
 func (a *Analyzer) canAdd(path string, extension string) bool {
+	if len(a.includeExtensions) > 0 {
+		_, ok := a.includeExtensions[a.getFileExtension(path)]
+		return ok
+	}
+
 	for _, pathToExclude := range a.excludePaths {
 		if strings.HasPrefix(path, pathToExclude) {
 			return false
