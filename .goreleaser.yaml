@@ -4,7 +4,7 @@ builds:
   - main: ./cmd/gcloc/main.go
     binary: gcloc
     ldflags:
-      - -X github.com/JoaoDanielRufino/gcloc/internal/contants.Version={{ .Tag }}
+      - -X github.com/JoaoDanielRufino/gcloc/internal/constants.Version={{ .Tag }}
     env:
       - CGO_ENABLED=0
     goos:
