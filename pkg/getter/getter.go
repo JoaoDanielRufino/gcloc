@@ -14,10 +14,15 @@ var seededRand *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 func Getter(src string) (string, error) {
 	dst := filepath.Join(os.TempDir(), fmt.Sprintf("gcloc-extract-%d", seededRand.Int()))
+	pwd, err := os.Getwd()
+	if err != nil {
+		return "", err
+	}
 
 	client := &getter.Client{
 		Src:  src,
 		Dst:  dst,
+		Pwd:  pwd,
 		Mode: getter.ClientModeAny,
 	}
 

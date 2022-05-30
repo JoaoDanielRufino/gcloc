@@ -14,6 +14,8 @@ import (
 )
 
 func TestNewGCloc(t *testing.T) {
+	testDir, _ := filepath.Abs(filepath.Join("..", "..", "test"))
+
 	tests := []struct {
 		name      string
 		params    Params
@@ -33,7 +35,7 @@ func TestNewGCloc(t *testing.T) {
 					Order: "ASC",
 				},
 				analyzer: analyzer.NewAnalyzer(
-					filepath.Join("..", "..", "test", "fixtures", "code_samples"),
+					filepath.Join(testDir, "fixtures", "code_samples"),
 					nil,
 					map[string]bool{},
 					map[string]bool{},
@@ -61,7 +63,7 @@ func TestNewGCloc(t *testing.T) {
 					ExcludeExtensions: []string{".go"},
 				},
 				analyzer: analyzer.NewAnalyzer(
-					filepath.Join("..", "..", "test", "fixtures", "code_samples"),
+					filepath.Join(testDir, "fixtures", "code_samples"),
 					nil,
 					map[string]bool{".go": true},
 					map[string]bool{},
