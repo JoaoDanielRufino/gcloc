@@ -37,6 +37,38 @@ $ gcloc jazzy-bot -e=node_modules --order-by-comment
 -------------+-------+-------+-------------+----------+-------------
 ```
 
+### From git remote repository
+
+```
+$ gcloc github.com/JoaoDanielRufino/gcloc
+  Language | Files | Lines | Blank lines | Comments | Code lines
+-----------+-------+-------+-------------+----------+-------------
+  Golang   |    32 |  3086 |         310 |       12 |       2764
+  HTML     |     1 |   167 |          14 |       16 |        137
+  YAML     |     4 |   110 |           8 |        0 |        102
+  Makefile |     1 |    22 |           3 |        0 |         19
+-----------+-------+-------+-------------+----------+-------------
+   Total   |  38   | 3385  |     335     |    28    |    3022
+-----------+-------+-------+-------------+----------+-------------
+```
+
+### Compressed files
+
+Supported archive formats from [go-getter](https://github.com/hashicorp/go-getter#unarchiving)
+
+```
+$ gcloc ~/Documents/gcloc.tar.gz
+  Language | Files | Lines | Blank lines | Comments | Code lines
+-----------+-------+-------+-------------+----------+-------------
+  Golang   |    32 |  3086 |         310 |       12 |       2764
+  HTML     |     1 |   167 |          14 |       16 |        137
+  YAML     |     4 |   110 |           8 |        0 |        102
+  Makefile |     1 |    22 |           3 |        0 |         19
+-----------+-------+-------+-------------+----------+-------------
+   Total   |  38   | 3385  |     335     |    28    |    3022
+-----------+-------+-------+-------------+----------+-------------
+```
+
 ### Via Docker
 
 From [dockerhub](https://hub.docker.com/repository/docker/joaodanielrufino/gcloc)
