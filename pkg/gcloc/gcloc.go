@@ -4,6 +4,7 @@ import (
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
 	"github.com/JoaoDanielRufino/gcloc/pkg/filesystem"
 	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
+	"github.com/JoaoDanielRufino/gcloc/pkg/getter"
 	"github.com/JoaoDanielRufino/gcloc/pkg/reporter"
 	"github.com/JoaoDanielRufino/gcloc/pkg/reporter/prompt"
 	"github.com/JoaoDanielRufino/gcloc/pkg/scanner"
@@ -35,13 +36,18 @@ type GCloc struct {
 }
 
 func NewGCloc(params Params, languages language.Languages) (*GCloc, error) {
-	excludePaths, err := filesystem.GetExcludePaths(params.Path, params.ExcludePaths)
+	path, err := getter.Getter(params.Path)
+	if err != nil {
+		return nil, err
+	}
+
+	excludePaths, err := filesystem.GetExcludePaths(path, params.ExcludePaths)
 	if err != nil {
 		return nil, err
 	}
 
 	analyzer := analyzer.NewAnalyzer(
-		params.Path,
+		path,
 		excludePaths,
 		utils.ConvertToMap(params.ExcludeExtensions),
 		utils.ConvertToMap(params.IncludeExtensions),
@@ -77,12 +83,16 @@ func (gc *GCloc) Run() error {
 	sortedSummary := gc.sortSummary(summary)
 
 	if gc.params.ByFile {
-		err = gc.reporter.GenerateReportByFile(sortedSummary)
-	} else {
-		err = gc.reporter.GenerateReportByLanguage(sortedSummary)
+		return gc.reporter.GenerateReportByFile(sortedSummary)
 	}
 
-	return err
+	return gc.reporter.GenerateReportByLanguage(sortedSummary)
+}
+
+func (gc *GCloc) ChangeLanguages(languages language.Languages) {
+	extensions := getExtensionsMap(languages)
+	gc.scanner.SupportedLanguages = languages
+	gc.analyzer.SupportedExtensions = extensions
 }
 
 func (gc *GCloc) sortSummary(summary *scanner.Summary) *sorter.SortedSummary {
@@ -115,12 +125,6 @@ func (gc *GCloc) sortSummary(summary *scanner.Summary) *sorter.SortedSummary {
 	}
 
 	return gc.sorter.OrderByCodeLines(summary)
-}
-
-func (gc *GCloc) ChangeLanguages(languages language.Languages) {
-	extensions := getExtensionsMap(languages)
-	gc.scanner.SupportedLanguages = languages
-	gc.analyzer.SupportedExtensions = extensions
 }
 
 func getExtensionsMap(languages language.Languages) map[string]string {
