@@ -83,12 +83,10 @@ func (gc *GCloc) Run() error {
 	sortedSummary := gc.sortSummary(summary)
 
 	if gc.params.ByFile {
-		err = gc.reporter.GenerateReportByFile(sortedSummary)
-	} else {
-		err = gc.reporter.GenerateReportByLanguage(sortedSummary)
+		return gc.reporter.GenerateReportByFile(sortedSummary)
 	}
 
-	return err
+	return gc.reporter.GenerateReportByLanguage(sortedSummary)
 }
 
 func (gc *GCloc) sortSummary(summary *scanner.Summary) *sorter.SortedSummary {
