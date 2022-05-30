@@ -1,6 +1,7 @@
 package gcloc
 
 import (
+	"os"
 	"path/filepath"
 	"testing"
 
@@ -175,7 +176,7 @@ func TestRun(t *testing.T) {
 }
 
 func TestChangeLanguages(t *testing.T) {
-	gcloc, _ := NewGCloc(Params{Path: "/tmp"}, constants.Languages)
+	gcloc, _ := NewGCloc(Params{Path: os.TempDir()}, constants.Languages)
 
 	newLanguages := language.Languages{
 		"Assembly": {
