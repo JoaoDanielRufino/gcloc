@@ -89,6 +89,12 @@ func (gc *GCloc) Run() error {
 	return gc.reporter.GenerateReportByLanguage(sortedSummary)
 }
 
+func (gc *GCloc) ChangeLanguages(languages language.Languages) {
+	extensions := getExtensionsMap(languages)
+	gc.scanner.SupportedLanguages = languages
+	gc.analyzer.SupportedExtensions = extensions
+}
+
 func (gc *GCloc) sortSummary(summary *scanner.Summary) *sorter.SortedSummary {
 	params := gc.params
 
@@ -119,12 +125,6 @@ func (gc *GCloc) sortSummary(summary *scanner.Summary) *sorter.SortedSummary {
 	}
 
 	return gc.sorter.OrderByCodeLines(summary)
-}
-
-func (gc *GCloc) ChangeLanguages(languages language.Languages) {
-	extensions := getExtensionsMap(languages)
-	gc.scanner.SupportedLanguages = languages
-	gc.analyzer.SupportedExtensions = extensions
 }
 
 func getExtensionsMap(languages language.Languages) map[string]string {
