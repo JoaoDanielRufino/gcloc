@@ -4,6 +4,7 @@ import (
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
 	"github.com/JoaoDanielRufino/gcloc/pkg/filesystem"
 	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
+	"github.com/JoaoDanielRufino/gcloc/pkg/getter"
 	"github.com/JoaoDanielRufino/gcloc/pkg/reporter"
 	"github.com/JoaoDanielRufino/gcloc/pkg/reporter/prompt"
 	"github.com/JoaoDanielRufino/gcloc/pkg/scanner"
@@ -35,13 +36,18 @@ type GCloc struct {
 }
 
 func NewGCloc(params Params, languages language.Languages) (*GCloc, error) {
-	excludePaths, err := filesystem.GetExcludePaths(params.Path, params.ExcludePaths)
+	path, err := getter.Getter(params.Path)
+	if err != nil {
+		return nil, err
+	}
+
+	excludePaths, err := filesystem.GetExcludePaths(path, params.ExcludePaths)
 	if err != nil {
 		return nil, err
 	}
 
 	analyzer := analyzer.NewAnalyzer(
-		params.Path,
+		path,
 		excludePaths,
 		utils.ConvertToMap(params.ExcludeExtensions),
 		utils.ConvertToMap(params.IncludeExtensions),
