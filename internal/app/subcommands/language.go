@@ -26,7 +26,7 @@ func NewLanguagesCmd() *cobra.Command {
 func run() commandRunnerFunc {
 	return func(cmd *cobra.Command, args []string) {
 		table := tablewriter.NewWriter(os.Stdout)
-		table.SetHeader([]string{"Language", "Single Comments", "Multi Line Comments"})
+		table.SetHeader([]string{"Language", "Extensions", "Single Comments", "Multi Line Comments"})
 		table.SetBorder(false)
 		table.SetAutoFormatHeaders(false)
 
@@ -36,7 +36,8 @@ func run() commandRunnerFunc {
 			info := constants.Languages[key]
 			table.Append([]string{
 				key,
-				formatSingleComment(info.LineComments),
+				formatArray(info.Extensions),
+				formatArray(info.LineComments),
 				formatMultiLineComment(info.MultiLineComments),
 			})
 		}
@@ -57,14 +58,14 @@ func getSortedMapKeys(languages language.Languages) []string {
 	return keys
 }
 
-func formatSingleComment(singleComments []string) string {
-	var comments string
+func formatArray(arr []string) string {
+	var formatted string
 
-	for _, comment := range singleComments {
-		comments += " " + comment
+	for _, item := range arr {
+		formatted += " " + item
 	}
 
-	return comments
+	return formatted
 }
 
 func formatMultiLineComment(multiLineComments [][]string) string {

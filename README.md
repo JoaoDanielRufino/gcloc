@@ -115,52 +115,52 @@ To show all supported languages use the subcommand `languages`
 
 ```
 $ gcloc languages
-      Language     | Single Comments | Multi Line Comments
--------------------+-----------------+----------------------
-  ActionScript     |  //             |  /* */
-  Assembly         |  // ; # @ | !   |  /* */
-  Bash             |  #              |
-  Batch            |  REM rem        |
-  C                |  //             |  /* */
-  C Header         |  //             |  /* */
-  C#               |  //             |  /* */
-  COBOL            |  * /            |
-  CSS              |  //             |  /* */
-  Clojure          |  ; ;; #_        |
-  CoffeeScript     |  #              |  ### ###
-  Dart             |  // ///         |  /* */
-  Elixir           |  #              |
-  Erlang           |  % %%           |
-  Haskell          |  --             |
-  Java             |  //             |  /* */
-  JavaScript       |  //             |  /* */
-  Json             |                 |
-  Jupyter Notebook |  #              |
-  Kotlin           |  //             |  /* */
-  Lisp             |  ;              |
-  Lua              |  --             |  --[[ ]]
-  Makefile         |  #              |
-  Markdown         |                 |
-  Maven            |  <!--           |  <!-- -->
-  PHP              |  // #           |  /* */
-  Perl             |  #              |  = =cut
-  Plain Text       |                 |
-  PowerShell       |  #              |
-  Processing       |  //             |  /* */
-  Protocol Buffers |  //             |
-  Python           |  #              |  """ """
-  R                |  #              |
-  Rego             |  #              |
-  Ruby             |  #              |  =begin =end
-  Rust             |  //             |  /* */
-  SQL              |  --             |  /* */
-  Scala            |  //             |  /* */
-  Scss             |  //             |  /* */
-  Swift            |  //             |  /* */
-  TypeScript       |  //             |  /* */
-  Vim              |  "              |
-  Vue              |  <!--           |  <!-- -->
-  XML              |  <!--           |  <!-- -->
-  YAML             |  #              |
-  Zsh              |  #              |
+      Language     |   Extensions   | Single Comments | Multi Line Comments
+-------------------+----------------+-----------------+----------------------
+  ActionScript     |  .as           |  //             |  /* */
+  Assembly         |  .asm          |  // ; # @ | !   |  /* */
+  Bash             |  .bash .sh     |  #              |
+  C Header         |  .h            |  //             |  /* */
+  C#               |  .cs           |  //             |  /* */
+  C++              |  .cpp .cc      |  //             |  /* */
+  C++ Header       |  .hh .hpp      |  //             |  /* */
+  COBOL            |  .cbl          |  * /            |
+  CSS              |  .css          |  //             |  /* */
+  Clojure          |  .clj          |  ; ;; #_        |
+  CoffeeScript     |  .coffee       |  #              |  ### ###
+  Dart             |  .dart         |  // ///         |  /* */
+  Elixir           |  .ex .exs      |  #              |
+  Erlang           |  .erl          |  % %%           |
+  Haskell          |  .hs           |  --             |
+  Java             |  .java         |  //             |  /* */
+  JavaScript       |  .js .jsx      |  //             |  /* */
+  Json             |  .json         |                 |
+  Jupyter Notebook |  .ipynb        |  #              |
+  Kotlin           |  .kt .kts      |  //             |  /* */
+  Lisp             |  .lsp .lisp    |  ;              |
+  Lua              |  .lua          |  --             |  --[[ ]]
+  Makefile         |  Makefile      |  #              |
+  Markdown         |  .md .markdown |                 |
+  Maven            |  .maven        |  <!--           |  <!-- -->
+  PHP              |  .php          |  // #           |  /* */
+  Perl             |  .pl           |  #              |  = =cut
+  Plain Text       |  .txt .text    |                 |
+  PowerShell       |  .ps1          |  #              |
+  Processing       |  .pde          |  //             |  /* */
+  Protocol Buffers |  .proto        |  //             |
+  Python           |  .py           |  #              |  """ """
+  R                |  .r .R         |  #              |
+  Rego             |  .rego         |  #              |
+  Ruby             |  .rb           |  #              |  =begin =end
+  Rust             |  .rs           |  //             |  /* */
+  SQL              |  .sql          |  --             |  /* */
+  Scala            |  .scala        |  //             |  /* */
+  Scss             |  .scss         |  //             |  /* */
+  Swift            |  .swift        |  //             |  /* */
+  TypeScript       |  .ts .tsx      |  //             |  /* */
+  Vim              |  .vim          |  "              |
+  Vue              |  .vue          |  <!--           |  <!-- -->
+  XML              |  .xml .XML     |  <!--           |  <!-- -->
+  YAML             |  .yaml .yml    |  #              |
+  Zsh              |  .zsh          |  #              |
 ```
