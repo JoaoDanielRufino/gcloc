@@ -1,19 +1,22 @@
 package getter
 
 import (
+	"crypto/rand"
+	"encoding/hex"
 	"fmt"
-	"math/rand"
 	"os"
 	"path/filepath"
-	"time"
 
 	getter "github.com/hashicorp/go-getter"
 )
 
-var seededRand *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
-
 func Getter(src string) (string, error) {
-	dst := filepath.Join(os.TempDir(), fmt.Sprintf("gcloc-extract-%d", seededRand.Int()))
+	suffix, err := randomSuffix()
+	if err != nil {
+		return "", err
+	}
+
+	dst := filepath.Join(os.TempDir(), fmt.Sprintf("gcloc-extract-%s", suffix))
 	pwd, err := os.Getwd()
 	if err != nil {
 		return "", err
@@ -45,4 +48,14 @@ func Getter(src string) (string, error) {
 	}
 
 	return dst, nil
+}
+
+func randomSuffix() (string, error) {
+	randBytes := make([]byte, 16)
+	_, err := rand.Read(randBytes)
+	if err != nil {
+		return "", err
+	}
+
+	return hex.EncodeToString(randBytes), nil
 }
