@@ -14,6 +14,8 @@ FROM alpine:3.15.0
 
 WORKDIR /app
 
+RUN apk add --no-cache git
+
 COPY --from=build /app/bin/gcloc ./
 
 ENTRYPOINT [ "/app/gcloc" ]
