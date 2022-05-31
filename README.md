@@ -115,22 +115,52 @@ To show all supported languages use the subcommand `languages`
 
 ```
 $ gcloc languages
-   Language  | Single Comments | Multi Line Comments
--------------+-----------------+----------------------
-  Assembly   |  // ; # @ | !   |  /* */
-  C          |  //             |  /* */
-  C Header   |  //             |  /* */
-  C++        |  //             |  /* */
-  C++ Header |  //             |  /* */
-  Golang     |  //             |  /* */
-  HTML       |                 |  <!-- -->
-  Haskell    |  --             |
-  Java       |  //             |  /* */
-  JavaScript |  //             |  /* */
-  Makefile   |  #              |
-  PHP        |  // #           |  /* */
-  Perl       |  #              |  = =cut
-  Python     |  #              |  """ """
-  TypeScript |  //             |  /* */
-  YAML       |  #              |
+      Language     | Single Comments | Multi Line Comments
+-------------------+-----------------+----------------------
+  ActionScript     |  //             |  /* */
+  Assembly         |  // ; # @ | !   |  /* */
+  Bash             |  #              |
+  Batch            |  REM rem        |
+  C                |  //             |  /* */
+  C Header         |  //             |  /* */
+  C#               |  //             |  /* */
+  COBOL            |  * /            |
+  CSS              |  //             |  /* */
+  Clojure          |  ; ;; #_        |
+  CoffeeScript     |  #              |  ### ###
+  Dart             |  // ///         |  /* */
+  Elixir           |  #              |
+  Erlang           |  % %%           |
+  Haskell          |  --             |
+  Java             |  //             |  /* */
+  JavaScript       |  //             |  /* */
+  Json             |                 |
+  Jupyter Notebook |  #              |
+  Kotlin           |  //             |  /* */
+  Lisp             |  ;              |
+  Lua              |  --             |  --[[ ]]
+  Makefile         |  #              |
+  Markdown         |                 |
+  Maven            |  <!--           |  <!-- -->
+  PHP              |  // #           |  /* */
+  Perl             |  #              |  = =cut
+  Plain Text       |                 |
+  PowerShell       |  #              |
+  Processing       |  //             |  /* */
+  Protocol Buffers |  //             |
+  Python           |  #              |  """ """
+  R                |  #              |
+  Rego             |  #              |
+  Ruby             |  #              |  =begin =end
+  Rust             |  //             |  /* */
+  SQL              |  --             |  /* */
+  Scala            |  //             |  /* */
+  Scss             |  //             |  /* */
+  Swift            |  //             |  /* */
+  TypeScript       |  //             |  /* */
+  Vim              |  "              |
+  Vue              |  <!--           |  <!-- -->
+  XML              |  <!--           |  <!-- -->
+  YAML             |  #              |
+  Zsh              |  #              |
 ```
