@@ -74,7 +74,7 @@ $ gcloc ~/Documents/gcloc.tar.gz
 From [dockerhub](https://hub.docker.com/repository/docker/joaodanielrufino/gcloc)
 
 ```
-docker run --rm -v $PWD:/tmp joaodanielrufino/gcloc /tmp
+docker run --rm -v $PWD:/gcloc joaodanielrufino/gcloc /gcloc
 ```
 
 ### Flags
