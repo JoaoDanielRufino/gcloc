@@ -75,15 +75,15 @@ func (a *Analyzer) getFileExtension(path string) string {
 }
 
 func (a *Analyzer) canAdd(path string, extension string) bool {
-	if len(a.includeExtensions) > 0 {
-		_, ok := a.includeExtensions[a.getFileExtension(path)]
-		return ok
-	}
-
 	for _, pathToExclude := range a.excludePaths {
 		if strings.HasPrefix(path, pathToExclude) {
 			return false
 		}
+	}
+
+	if len(a.includeExtensions) > 0 {
+		_, ok := a.includeExtensions[a.getFileExtension(path)]
+		return ok
 	}
 
 	if _, ok := a.excludeExtensions[a.getFileExtension(path)]; ok {
