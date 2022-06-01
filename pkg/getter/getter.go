@@ -6,11 +6,17 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"time"
 
+	"github.com/briandowns/spinner"
 	getter "github.com/hashicorp/go-getter"
 )
 
 func Getter(src string) (string, error) {
+	spinner := newSpinner(fmt.Sprintf(" Extracting files from %s", src))
+	spinner.Start()
+	defer spinner.Stop()
+
 	suffix, err := randomSuffix()
 	if err != nil {
 		return "", err
@@ -33,12 +39,12 @@ func Getter(src string) (string, error) {
 		return "", err
 	}
 
-	info, err := os.Lstat(dst)
+	symLink, err := isSymLink(dst)
 	if err != nil {
 		return "", err
 	}
 
-	if info.Mode()&os.ModeSymlink != 0 {
+	if symLink {
 		origin, err := os.Readlink(dst)
 		if err != nil {
 			return "", err
@@ -50,6 +56,14 @@ func Getter(src string) (string, error) {
 	return dst, nil
 }
 
+func newSpinner(text string) *spinner.Spinner {
+	return spinner.New(
+		spinner.CharSets[14],
+		100*time.Millisecond,
+		spinner.WithSuffix(text),
+	)
+}
+
 func randomSuffix() (string, error) {
 	randBytes := make([]byte, 16)
 	_, err := rand.Read(randBytes)
@@ -58,4 +72,13 @@ func randomSuffix() (string, error) {
 	}
 
 	return hex.EncodeToString(randBytes), nil
+}
+
+func isSymLink(path string) (bool, error) {
+	info, err := os.Lstat(path)
+	if err != nil {
+		return false, err
+	}
+
+	return info.Mode()&os.ModeSymlink != 0, nil
 }
