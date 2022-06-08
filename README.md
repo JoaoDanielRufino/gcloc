@@ -69,6 +69,25 @@ $ gcloc ~/Documents/gcloc.tar.gz
 -----------+-------+-------+-------------+----------+-------------
 ```
 
+### Exporting results
+
+```
+$ gcloc github.com/JoaoDanielRufino/gcloc --report-formats=prompt,json
+   Language  | Files | Lines | Blank lines | Comments | Code lines
+-------------+-------+-------+-------------+----------+-------------
+  Golang     |    34 |  3591 |         364 |       12 |       3215
+  Markdown   |     1 |   169 |          25 |        0 |        144
+  HTML       |     1 |   167 |          14 |       16 |        137
+  YAML       |     4 |   110 |           8 |        0 |        102
+  Json       |     1 |    20 |           0 |        0 |         20
+  Makefile   |     1 |    22 |           3 |        0 |         19
+  Plain Text |     1 |     1 |           0 |        0 |          1
+-------------+-------+-------+-------------+----------+-------------
+    Total    |  43   | 4080  |     414     |    28    |    3638
+-------------+-------+-------+-------------+----------+-------------
+json report exported to /home/joaodaniel/Documents/gcloc/cmd/gcloc/result.json
+```
+
 ### Via Docker
 
 From [dockerhub](https://hub.docker.com/repository/docker/joaodanielrufino/gcloc)
