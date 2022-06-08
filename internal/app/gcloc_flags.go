@@ -77,7 +77,7 @@ var gclocFlags = map[string]flags.Flag{
 	},
 	constants.ReportFormatsFlag: {
 		Kind:         reflect.Slice,
-		DefaultValue: []string{constants.PROMPT_REPORT},
+		DefaultValue: []string{"prompt"},
 		Description:  "Report formats in which the results will be exported (prompt, json)",
 	},
 }

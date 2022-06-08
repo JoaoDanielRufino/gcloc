@@ -15,8 +15,6 @@ const (
 	OutputNameFlag        = "output-name"
 	OutputPathFlag        = "output-path"
 	ReportFormatsFlag     = "report-formats"
-
-	PROMPT_REPORT = "prompt"
 )
 
 var Version = "development"
