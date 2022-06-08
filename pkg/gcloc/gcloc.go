@@ -138,6 +138,7 @@ func (gc *GCloc) generateReports(sortedSummary *sorter.SortedSummary) error {
 				return err
 			}
 		}
+		return nil
 	}
 
 	for _, reporter := range gc.reporters {
