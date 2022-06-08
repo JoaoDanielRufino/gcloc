@@ -71,7 +71,7 @@ $ gcloc ~/Documents/gcloc.tar.gz
 
 ### Via Docker
 
-From [dockerhub](https://hub.docker.com/repository/docker/joaodanielrufino/gcloc)
+From [dockerhub](https://hub.docker.com/r/joaodanielrufino/gcloc)
 
 ```
 docker run --rm -t -v $PWD:/gcloc joaodanielrufino/gcloc /gcloc
