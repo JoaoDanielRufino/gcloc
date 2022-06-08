@@ -1,6 +1,8 @@
 package gcloc
 
 import (
+	"fmt"
+
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
 	"github.com/JoaoDanielRufino/gcloc/pkg/filesystem"
 	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
@@ -25,14 +27,17 @@ type Params struct {
 	OrderByBlank      bool
 	OrderByComment    bool
 	Order             string
+	OutputName        string
+	OutputPath        string
+	ReportFormats     []string
 }
 
 type GCloc struct {
-	params   Params
-	analyzer *analyzer.Analyzer
-	scanner  *scanner.Scanner
-	sorter   sorter.Sorter
-	reporter reporter.Reporter
+	params    Params
+	analyzer  *analyzer.Analyzer
+	scanner   *scanner.Scanner
+	sorter    sorter.Sorter
+	reporters []reporter.Reporter
 }
 
 func NewGCloc(params Params, languages language.Languages) (*GCloc, error) {
@@ -58,12 +63,14 @@ func NewGCloc(params Params, languages language.Languages) (*GCloc, error) {
 
 	sorter := getSorter(params.ByFile, params.Order)
 
+	reporters := getReporters(params.ReportFormats)
+
 	return &GCloc{
-		params:   params,
-		analyzer: analyzer,
-		scanner:  scanner,
-		sorter:   sorter,
-		reporter: prompt.PromptReporter{},
+		params:    params,
+		analyzer:  analyzer,
+		scanner:   scanner,
+		sorter:    sorter,
+		reporters: reporters,
 	}, nil
 }
 
@@ -82,11 +89,7 @@ func (gc *GCloc) Run() error {
 
 	sortedSummary := gc.sortSummary(summary)
 
-	if gc.params.ByFile {
-		return gc.reporter.GenerateReportByFile(sortedSummary)
-	}
-
-	return gc.reporter.GenerateReportByLanguage(sortedSummary)
+	return gc.generateReports(sortedSummary)
 }
 
 func (gc *GCloc) ChangeLanguages(languages language.Languages) {
@@ -127,6 +130,24 @@ func (gc *GCloc) sortSummary(summary *scanner.Summary) *sorter.SortedSummary {
 	return gc.sorter.OrderByCodeLines(summary)
 }
 
+func (gc *GCloc) generateReports(sortedSummary *sorter.SortedSummary) error {
+	if gc.params.ByFile {
+		for _, reporter := range gc.reporters {
+			if err := reporter.GenerateReportByFile(sortedSummary); err != nil {
+				return err
+			}
+		}
+	}
+
+	for _, reporter := range gc.reporters {
+		if err := reporter.GenerateReportByLanguage(sortedSummary); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 func getExtensionsMap(languages language.Languages) map[string]string {
 	extensions := map[string]string{}
 
@@ -145,4 +166,21 @@ func getSorter(byFile bool, order string) sorter.Sorter {
 	}
 
 	return sorter.NewLanguageSorter(order)
+}
+
+func getReporters(reportFormats []string) []reporter.Reporter {
+	var reporters []reporter.Reporter
+
+	for _, format := range reportFormats {
+		switch format {
+		case "prompt":
+			reporters = append(reporters, prompt.PromptReporter{})
+		case "json":
+			reporters = append(reporters, prompt.PromptReporter{})
+		default:
+			fmt.Printf("%s report format not supported\n", format)
+		}
+	}
+
+	return reporters
 }

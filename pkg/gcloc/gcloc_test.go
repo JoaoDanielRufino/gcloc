@@ -8,6 +8,7 @@ import (
 	"github.com/JoaoDanielRufino/gcloc/internal/constants"
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
 	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
+	"github.com/JoaoDanielRufino/gcloc/pkg/reporter"
 	"github.com/JoaoDanielRufino/gcloc/pkg/reporter/prompt"
 	"github.com/JoaoDanielRufino/gcloc/pkg/scanner"
 	"github.com/JoaoDanielRufino/gcloc/pkg/sorter"
@@ -26,14 +27,16 @@ func TestNewGCloc(t *testing.T) {
 		{
 			name: "Should create gcloc without errors",
 			params: Params{
-				Path:  filepath.Join("..", "..", "test", "fixtures", "code_samples"),
-				Order: "ASC",
+				Path:          filepath.Join("..", "..", "test", "fixtures", "code_samples"),
+				Order:         "ASC",
+				ReportFormats: []string{"prompt"},
 			},
 			languages: constants.Languages,
 			want: &GCloc{
 				params: Params{
-					Path:  filepath.Join("..", "..", "test", "fixtures", "code_samples"),
-					Order: "ASC",
+					Path:          filepath.Join("..", "..", "test", "fixtures", "code_samples"),
+					Order:         "ASC",
+					ReportFormats: []string{"prompt"},
 				},
 				analyzer: analyzer.NewAnalyzer(
 					filepath.Join(testDir, "fixtures", "code_samples"),
@@ -42,9 +45,9 @@ func TestNewGCloc(t *testing.T) {
 					map[string]bool{},
 					getExtensionsMap(constants.Languages),
 				),
-				scanner:  scanner.NewScanner(constants.Languages),
-				sorter:   sorter.NewLanguageSorter("ASC"),
-				reporter: prompt.PromptReporter{},
+				scanner:   scanner.NewScanner(constants.Languages),
+				sorter:    sorter.NewLanguageSorter("ASC"),
+				reporters: []reporter.Reporter{prompt.PromptReporter{}},
 			},
 		},
 		{
@@ -54,6 +57,7 @@ func TestNewGCloc(t *testing.T) {
 				Order:             "ASC",
 				ByFile:            true,
 				ExcludeExtensions: []string{".go"},
+				ReportFormats:     []string{"prompt"},
 			},
 			languages: constants.Languages,
 			want: &GCloc{
@@ -62,6 +66,7 @@ func TestNewGCloc(t *testing.T) {
 					Order:             "ASC",
 					ByFile:            true,
 					ExcludeExtensions: []string{".go"},
+					ReportFormats:     []string{"prompt"},
 				},
 				analyzer: analyzer.NewAnalyzer(
 					filepath.Join(testDir, "fixtures", "code_samples"),
@@ -70,9 +75,9 @@ func TestNewGCloc(t *testing.T) {
 					map[string]bool{},
 					getExtensionsMap(constants.Languages),
 				),
-				scanner:  scanner.NewScanner(constants.Languages),
-				sorter:   sorter.NewFileSorter("ASC"),
-				reporter: prompt.PromptReporter{},
+				scanner:   scanner.NewScanner(constants.Languages),
+				sorter:    sorter.NewFileSorter("ASC"),
+				reporters: []reporter.Reporter{prompt.PromptReporter{}},
 			},
 		},
 	}

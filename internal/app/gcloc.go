@@ -1,6 +1,8 @@
 package app
 
 import (
+	"os"
+
 	"github.com/spf13/cobra"
 
 	"github.com/JoaoDanielRufino/gcloc/internal/app/subcommands"
@@ -48,8 +50,12 @@ func run() commandRunnerFunc {
 }
 
 func getParams(cmd *cobra.Command, args []string) (gcloc.Params, error) {
-	pathToScan := "./"
+	pwd, err := os.Getwd()
+	if err != nil {
+		return gcloc.Params{}, err
+	}
 
+	pathToScan := pwd
 	if len(args) == 1 {
 		pathToScan = args[0]
 	}
@@ -109,6 +115,25 @@ func getParams(cmd *cobra.Command, args []string) (gcloc.Params, error) {
 		return gcloc.Params{}, err
 	}
 
+	outputName, err := cmd.Flags().GetString(constants.OutputNameFlag)
+	if err != nil {
+		return gcloc.Params{}, err
+	}
+
+	outputPath, err := cmd.Flags().GetString(constants.OutputPathFlag)
+	if err != nil {
+		return gcloc.Params{}, err
+	}
+
+	if outputPath == "" {
+		outputPath = pwd
+	}
+
+	reportFormats, err := cmd.Flags().GetStringSlice(constants.ReportFormatsFlag)
+	if err != nil {
+		return gcloc.Params{}, err
+	}
+
 	params := gcloc.Params{
 		Path:              pathToScan,
 		ByFile:            byFile,
@@ -122,6 +147,9 @@ func getParams(cmd *cobra.Command, args []string) (gcloc.Params, error) {
 		OrderByBlank:      orderByBlank,
 		OrderByComment:    orderByComment,
 		Order:             order,
+		OutputName:        outputName,
+		OutputPath:        outputPath,
+		ReportFormats:     reportFormats,
 	}
 
 	return params, nil
