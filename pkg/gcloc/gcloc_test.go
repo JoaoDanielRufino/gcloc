@@ -9,6 +9,7 @@ import (
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
 	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
 	"github.com/JoaoDanielRufino/gcloc/pkg/reporter"
+	"github.com/JoaoDanielRufino/gcloc/pkg/reporter/json"
 	"github.com/JoaoDanielRufino/gcloc/pkg/reporter/prompt"
 	"github.com/JoaoDanielRufino/gcloc/pkg/scanner"
 	"github.com/JoaoDanielRufino/gcloc/pkg/sorter"
@@ -78,6 +79,42 @@ func TestNewGCloc(t *testing.T) {
 				scanner:   scanner.NewScanner(constants.Languages),
 				sorter:    sorter.NewFileSorter("ASC"),
 				reporters: []reporter.Reporter{prompt.PromptReporter{}},
+			},
+		},
+		{
+			name: "Should create gcloc without errors with json and prompt reporters",
+			params: Params{
+				Path:          filepath.Join("..", "..", "test", "fixtures", "code_samples"),
+				Order:         "ASC",
+				OutputName:    "results",
+				OutputPath:    "/tmp",
+				ReportFormats: []string{"prompt", "json"},
+			},
+			languages: constants.Languages,
+			want: &GCloc{
+				params: Params{
+					Path:          filepath.Join("..", "..", "test", "fixtures", "code_samples"),
+					Order:         "ASC",
+					OutputName:    "results",
+					OutputPath:    "/tmp",
+					ReportFormats: []string{"prompt", "json"},
+				},
+				analyzer: analyzer.NewAnalyzer(
+					filepath.Join(testDir, "fixtures", "code_samples"),
+					nil,
+					map[string]bool{},
+					map[string]bool{},
+					getExtensionsMap(constants.Languages),
+				),
+				scanner: scanner.NewScanner(constants.Languages),
+				sorter:  sorter.NewLanguageSorter("ASC"),
+				reporters: []reporter.Reporter{
+					prompt.PromptReporter{},
+					json.JsonReporter{
+						OutputName: "results",
+						OutputPath: "/tmp",
+					},
+				},
 			},
 		},
 	}
