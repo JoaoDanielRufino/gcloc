@@ -8,6 +8,7 @@ import (
 	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
 	"github.com/JoaoDanielRufino/gcloc/pkg/getter"
 	"github.com/JoaoDanielRufino/gcloc/pkg/reporter"
+	"github.com/JoaoDanielRufino/gcloc/pkg/reporter/json"
 	"github.com/JoaoDanielRufino/gcloc/pkg/reporter/prompt"
 	"github.com/JoaoDanielRufino/gcloc/pkg/scanner"
 	"github.com/JoaoDanielRufino/gcloc/pkg/sorter"
@@ -63,7 +64,7 @@ func NewGCloc(params Params, languages language.Languages) (*GCloc, error) {
 
 	sorter := getSorter(params.ByFile, params.Order)
 
-	reporters := getReporters(params.ReportFormats)
+	reporters := getReporters(params.ReportFormats, params.OutputName, params.OutputPath)
 
 	return &GCloc{
 		params:    params,
@@ -168,7 +169,7 @@ func getSorter(byFile bool, order string) sorter.Sorter {
 	return sorter.NewLanguageSorter(order)
 }
 
-func getReporters(reportFormats []string) []reporter.Reporter {
+func getReporters(reportFormats []string, outputName, outputPath string) []reporter.Reporter {
 	var reporters []reporter.Reporter
 
 	for _, format := range reportFormats {
@@ -176,7 +177,10 @@ func getReporters(reportFormats []string) []reporter.Reporter {
 		case "prompt":
 			reporters = append(reporters, prompt.PromptReporter{})
 		case "json":
-			reporters = append(reporters, prompt.PromptReporter{})
+			reporters = append(reporters, json.JsonReporter{
+				OutputName: outputName,
+				OutputPath: outputPath,
+			})
 		default:
 			fmt.Printf("%s report format not supported\n", format)
 		}
