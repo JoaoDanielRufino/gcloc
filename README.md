@@ -69,6 +69,25 @@ $ gcloc ~/Documents/gcloc.tar.gz
 -----------+-------+-------+-------------+----------+-------------
 ```
 
+### Exporting results
+
+```
+$ gcloc github.com/JoaoDanielRufino/gcloc --report-formats=prompt,json
+   Language  | Files | Lines | Blank lines | Comments | Code lines
+-------------+-------+-------+-------------+----------+-------------
+  Golang     |    34 |  3591 |         364 |       12 |       3215
+  Markdown   |     1 |   169 |          25 |        0 |        144
+  HTML       |     1 |   167 |          14 |       16 |        137
+  YAML       |     4 |   110 |           8 |        0 |        102
+  Json       |     1 |    20 |           0 |        0 |         20
+  Makefile   |     1 |    22 |           3 |        0 |         19
+  Plain Text |     1 |     1 |           0 |        0 |          1
+-------------+-------+-------+-------------+----------+-------------
+    Total    |  43   | 4080  |     414     |    28    |    3638
+-------------+-------+-------+-------------+----------+-------------
+json report exported to /home/joaodaniel/Documents/gcloc/cmd/gcloc/result.json
+```
+
 ### Via Docker
 
 From [dockerhub](https://hub.docker.com/r/joaodanielrufino/gcloc)
@@ -92,18 +111,21 @@ Available Commands:
   languages   Show gcloc supported languages
 
 Flags:
-      --by-file                      Show result by file
+      --by-file                      Show results by file
   -e, --exclude strings              Exclude directories or files from being scanned
       --exclude-extensions strings   Exclude extensions from being scanned
   -h, --help                         help for gcloc
       --include-extensions strings   Include the extensions to be scanned
-  -o, --order string                 Sorting order <ASC,DESC> (default "DESC")
+      --order string                 Sorting order <ASC,DESC> (default "DESC")
       --order-by-blank               Show results ordered by blank lines
       --order-by-code                Show results ordered by lines of code
       --order-by-comment             Show results ordered by comments
       --order-by-file                Show results ordered by file count
       --order-by-lang                Show results ordered by language
       --order-by-line                Show results ordered by lines count
+      --output-name string           Name of report output (default "result")
+  -o, --output-path string           Path where the report will be exported
+      --report-formats strings       Report formats in which the results will be exported (prompt, json) (default [prompt])
   -v, --version                      version for gcloc
 
 Use "gcloc [command] --help" for more information about a command.

@@ -12,4 +12,9 @@ const (
 	OrderByBlankFlag      = "order-by-blank"
 	OrderByCommentFlag    = "order-by-comment"
 	OrderFlag             = "order"
+	OutputNameFlag        = "output-name"
+	OutputPathFlag        = "output-path"
+	ReportFormatsFlag     = "report-formats"
 )
+
+var Version = "development"
