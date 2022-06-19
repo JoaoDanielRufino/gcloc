@@ -88,6 +88,27 @@ $ gcloc github.com/JoaoDanielRufino/gcloc --report-formats=prompt,json
 json report exported to /home/joaodaniel/Documents/gcloc/cmd/gcloc/result.json
 ```
 
+### GitHub Actions integration
+
+```yaml
+name: GCloc
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v3
+      - name: Run GCloc
+        run: docker run -t -v $PWD:/gcloc joaodanielrufino/gcloc /gcloc --report-formats=prompt,json -o /gcloc
+      - name: Archive gcloc result
+        uses: actions/upload-artifact@v3
+        with:
+          name: gcloc-result
+          path: result.json
+```
+
 ### Via Docker
 
 From [dockerhub](https://hub.docker.com/r/joaodanielrufino/gcloc)
