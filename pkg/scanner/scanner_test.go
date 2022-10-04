@@ -51,13 +51,20 @@ func TestScan(t *testing.T) {
 		},
 		{
 			Metadata:   files[3],
+			Lines:      20,
+			CodeLines:  15,
+			BlankLines: 4,
+			Comments:   1,
+		},
+		{
+			Metadata:   files[4],
 			Lines:      13,
 			CodeLines:  8,
 			BlankLines: 3,
 			Comments:   2,
 		},
 		{
-			Metadata:   files[4],
+			Metadata:   files[5],
 			Lines:      13,
 			CodeLines:  8,
 			BlankLines: 3,

@@ -72,6 +72,11 @@ func TestMatchingFiles(t *testing.T) {
 					Extension: ".ts",
 					Language:  "TypeScript",
 				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.java"),
+					Extension: ".java",
+					Language:  "Java",
+				},
 			},
 		},
 		{
@@ -104,6 +109,11 @@ func TestMatchingFiles(t *testing.T) {
 					Extension: ".ts",
 					Language:  "TypeScript",
 				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.java"),
+					Extension: ".java",
+					Language:  "Java",
+				},
 			},
 		},
 		{
@@ -135,6 +145,11 @@ func TestMatchingFiles(t *testing.T) {
 					FilePath:  filepath.Join(codeSamplesDir, "main.ts"),
 					Extension: ".ts",
 					Language:  "TypeScript",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.java"),
+					Extension: ".java",
+					Language:  "Java",
 				},
 			},
 		},
