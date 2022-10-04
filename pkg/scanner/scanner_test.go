@@ -56,6 +56,13 @@ func TestScan(t *testing.T) {
 			BlankLines: 3,
 			Comments:   2,
 		},
+		{
+			Metadata:   files[4],
+			Lines:      13,
+			CodeLines:  8,
+			BlankLines: 3,
+			Comments:   2,
+		},
 	}
 
 	result, err := scanner.Scan(files)
