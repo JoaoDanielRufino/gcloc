@@ -53,6 +53,11 @@ func TestMatchingFiles(t *testing.T) {
 					Language:  "C",
 				},
 				{
+					FilePath:  filepath.Join(codeSamplesDir, "_main.cc"),
+					Extension: ".cc",
+					Language:  "C++",
+				},
+				{
 					FilePath:  filepath.Join(codeSamplesDir, "index.html"),
 					Extension: ".html",
 					Language:  "HTML",
@@ -90,6 +95,11 @@ func TestMatchingFiles(t *testing.T) {
 					Language:  "C",
 				},
 				{
+					FilePath:  filepath.Join(codeSamplesDir, "_main.cc"),
+					Extension: ".cc",
+					Language:  "C++",
+				},
+				{
 					FilePath:  filepath.Join(codeSamplesDir, "index.html"),
 					Extension: ".html",
 					Language:  "HTML",
@@ -120,6 +130,11 @@ func TestMatchingFiles(t *testing.T) {
 					FilePath:  filepath.Join(codeSamplesDir, "_main.c"),
 					Extension: ".c",
 					Language:  "C",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "_main.cc"),
+					Extension: ".cc",
+					Language:  "C++",
 				},
 				{
 					FilePath:  filepath.Join(codeSamplesDir, "index.html"),
