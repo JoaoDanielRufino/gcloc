@@ -57,11 +57,15 @@ func TestMatchingFiles(t *testing.T) {
 					Extension: ".html",
 					Language:  "HTML",
 				},
-
 				{
 					FilePath:  filepath.Join(codeSamplesDir, "main.go"),
 					Extension: ".go",
 					Language:  "Golang",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.js"),
+					Extension: ".js",
+					Language:  "JavaScript",
 				},
 			},
 		},
@@ -85,6 +89,11 @@ func TestMatchingFiles(t *testing.T) {
 					Extension: ".html",
 					Language:  "HTML",
 				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.js"),
+					Extension: ".js",
+					Language:  "JavaScript",
+				},
 			},
 		},
 		{
@@ -106,6 +115,11 @@ func TestMatchingFiles(t *testing.T) {
 					FilePath:  filepath.Join(codeSamplesDir, "index.html"),
 					Extension: ".html",
 					Language:  "HTML",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.js"),
+					Extension: ".js",
+					Language:  "JavaScript",
 				},
 			},
 		},
