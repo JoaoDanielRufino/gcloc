@@ -48,10 +48,16 @@ func TestMatchingFiles(t *testing.T) {
 			),
 			want: []FileMetadata{
 				{
+					FilePath:  filepath.Join(codeSamplesDir, "_main.c"),
+					Extension: ".c",
+					Language:  "C",
+				},
+				{
 					FilePath:  filepath.Join(codeSamplesDir, "index.html"),
 					Extension: ".html",
 					Language:  "HTML",
 				},
+
 				{
 					FilePath:  filepath.Join(codeSamplesDir, "main.go"),
 					Extension: ".go",
@@ -70,6 +76,11 @@ func TestMatchingFiles(t *testing.T) {
 			),
 			want: []FileMetadata{
 				{
+					FilePath:  filepath.Join(codeSamplesDir, "_main.c"),
+					Extension: ".c",
+					Language:  "C",
+				},
+				{
 					FilePath:  filepath.Join(codeSamplesDir, "index.html"),
 					Extension: ".html",
 					Language:  "HTML",
@@ -86,6 +97,11 @@ func TestMatchingFiles(t *testing.T) {
 				extensions,
 			),
 			want: []FileMetadata{
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "_main.c"),
+					Extension: ".c",
+					Language:  "C",
+				},
 				{
 					FilePath:  filepath.Join(codeSamplesDir, "index.html"),
 					Extension: ".html",
