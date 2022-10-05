@@ -6,12 +6,10 @@ import (
 
 	"github.com/JoaoDanielRufino/gcloc/internal/constants"
 	"github.com/JoaoDanielRufino/gcloc/pkg/analyzer"
-	"github.com/JoaoDanielRufino/gcloc/pkg/gcloc/language"
 	"github.com/stretchr/testify/require"
 )
 
 var languages = constants.Languages
-var extensions = getExtensionsMap(languages)
 
 func TestNewScanner(t *testing.T) {
 	expected := &Scanner{SupportedLanguages: languages}
@@ -22,10 +20,45 @@ func TestNewScanner(t *testing.T) {
 
 func TestScan(t *testing.T) {
 	codeSamplesDir := filepath.Join("..", "..", "test", "fixtures", "code_samples")
-	fileAnalyzer := analyzer.NewAnalyzer(codeSamplesDir, []string{}, map[string]bool{}, map[string]bool{}, extensions)
 	scanner := NewScanner(languages)
 
-	files, _ := fileAnalyzer.MatchingFiles()
+	files := []analyzer.FileMetadata{
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "_main.c"),
+			Extension: ".c",
+			Language:  "C",
+		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "_main.cc"),
+			Extension: ".cc",
+			Language:  "C++",
+		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "_main.java"),
+			Extension: ".java",
+			Language:  "Java",
+		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "index.html"),
+			Extension: ".html",
+			Language:  "HTML",
+		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "main.go"),
+			Extension: ".go",
+			Language:  "Golang",
+		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "main.js"),
+			Extension: ".js",
+			Language:  "JavaScript",
+		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "main.ts"),
+			Extension: ".ts",
+			Language:  "TypeScript",
+		},
+	}
 
 	expected := []scanResult{
 		{
@@ -71,7 +104,7 @@ func TestScan(t *testing.T) {
 			Comments:   2,
 		},
 		{
-			Metadata:   files[5],
+			Metadata:   files[6],
 			Lines:      13,
 			CodeLines:  8,
 			BlankLines: 3,
@@ -82,38 +115,5 @@ func TestScan(t *testing.T) {
 	result, err := scanner.Scan(files)
 	require.NoError(t, err)
 
-	require.Equal(t, areScanResultsEqual(expected, result), true)
-}
-
-func getExtensionsMap(languages language.Languages) map[string]string {
-	extensions := map[string]string{}
-
-	for language, languageInfo := range languages {
-		for _, extension := range languageInfo.Extensions {
-			extensions[extension] = language
-		}
-	}
-
-	return extensions
-}
-
-func areScanResultsEqual(wanted []scanResult, files []scanResult) bool {
-	if len(wanted) != len(files) {
-		return false
-	}
-
-	for _, want := range wanted {
-		present := false
-		for _, file := range files {
-			if file == want {
-				present = true
-				break
-			}
-		}
-		if !present {
-			return false
-		}
-	}
-
-	return true
+	require.ElementsMatch(t, expected, result)
 }
