@@ -102,17 +102,18 @@ func areScanResultsEqual(wanted []scanResult, files []scanResult) bool {
 		return false
 	}
 
-	globalPresent := true
-
 	for _, want := range wanted {
 		present := false
 		for _, file := range files {
 			if file == want {
 				present = true
+				break
 			}
 		}
-		globalPresent = (present == true)
+		if !present {
+		        return false
+		}
 	}
 
-	return globalPresent
+	return true
 }
