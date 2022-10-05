@@ -77,6 +77,11 @@ func TestMatchingFiles(t *testing.T) {
 					Extension: ".ts",
 					Language:  "TypeScript",
 				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "_main.java"),
+					Extension: ".java",
+					Language:  "Java",
+				},
 			},
 		},
 		{
@@ -113,6 +118,11 @@ func TestMatchingFiles(t *testing.T) {
 					FilePath:  filepath.Join(codeSamplesDir, "main.ts"),
 					Extension: ".ts",
 					Language:  "TypeScript",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "_main.java"),
+					Extension: ".java",
+					Language:  "Java",
 				},
 			},
 		},
@@ -151,6 +161,11 @@ func TestMatchingFiles(t *testing.T) {
 					Extension: ".ts",
 					Language:  "TypeScript",
 				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "_main.java"),
+					Extension: ".java",
+					Language:  "Java",
+				},
 			},
 		},
 		{
@@ -176,7 +191,8 @@ func TestMatchingFiles(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			files, err := tt.analyzer.MatchingFiles()
 			require.NoError(t, err)
-			require.Equal(t, tt.want, files)
+
+			require.Equal(t, areFilemetaEqual(tt.want, files), true)
 		})
 	}
 }
@@ -191,4 +207,25 @@ func getExtensionsMap(languages language.Languages) map[string]string {
 	}
 
 	return extensions
+}
+
+func areFilemetaEqual(wanted []FileMetadata, files []FileMetadata) bool {
+	if len(wanted) != len(files) {
+		return false
+	}
+
+	for _, want := range wanted {
+		present := false
+		for _, file := range files {
+			if file == want {
+				present = true
+				break
+			}
+		}
+		if !present {
+		        return false
+		}
+	}
+
+	return true
 }

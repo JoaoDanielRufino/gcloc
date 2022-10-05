@@ -44,20 +44,27 @@ func TestScan(t *testing.T) {
 		},
 		{
 			Metadata:   files[2],
+			Lines:      24,
+			CodeLines:  15,
+			BlankLines: 5,
+			Comments:   4,
+		},
+		{
+			Metadata:   files[3],
 			Lines:      167,
 			CodeLines:  137,
 			BlankLines: 14,
 			Comments:   16,
 		},
 		{
-			Metadata:   files[3],
+			Metadata:   files[4],
 			Lines:      20,
 			CodeLines:  9,
 			BlankLines: 5,
 			Comments:   6,
 		},
 		{
-			Metadata:   files[4],
+			Metadata:   files[5],
 			Lines:      13,
 			CodeLines:  8,
 			BlankLines: 3,
@@ -74,7 +81,8 @@ func TestScan(t *testing.T) {
 
 	result, err := scanner.Scan(files)
 	require.NoError(t, err)
-	require.Equal(t, expected, result)
+
+	require.Equal(t, areScanResultsEqual(expected, result), true)
 }
 
 func getExtensionsMap(languages language.Languages) map[string]string {
@@ -87,4 +95,25 @@ func getExtensionsMap(languages language.Languages) map[string]string {
 	}
 
 	return extensions
+}
+
+func areScanResultsEqual(wanted []scanResult, files []scanResult) bool {
+	if len(wanted) != len(files) {
+		return false
+	}
+
+	for _, want := range wanted {
+		present := false
+		for _, file := range files {
+			if file == want {
+				present = true
+				break
+			}
+		}
+		if !present {
+			return false
+		}
+	}
+
+	return true
 }
