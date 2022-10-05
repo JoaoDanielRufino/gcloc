@@ -111,7 +111,7 @@ func areScanResultsEqual(wanted []scanResult, files []scanResult) bool {
 			}
 		}
 		if !present {
-		        return false
+			return false
 		}
 	}
 
