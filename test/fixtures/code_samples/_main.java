@@ -4,6 +4,10 @@ class HelloWorld
 {
     public static void main(String args[])
     {
+        /* This is a block comment
+        stating that we are performing a simple operation
+        of printing hello world below*/
+        
         String s = "Hello, World!";
         System.out.println(s);
         
