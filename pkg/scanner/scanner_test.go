@@ -44,6 +44,11 @@ func TestScan(t *testing.T) {
 			Language:  "HTML",
 		},
 		{
+			FilePath:  filepath.Join(codeSamplesDir, "index.php"),
+			Extension: ".php",
+			Language:  "PHP",
+		},
+		{
 			FilePath:  filepath.Join(codeSamplesDir, "main.go"),
 			Extension: ".go",
 			Language:  "Golang",
