@@ -87,6 +87,11 @@ func TestMatchingFiles(t *testing.T) {
 					Extension: ".java",
 					Language:  "Java",
 				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.py"),
+					Extension: ".py",
+					Language:  "Python",
+				},
 			},
 		},
 		{
@@ -129,6 +134,11 @@ func TestMatchingFiles(t *testing.T) {
 					Extension: ".java",
 					Language:  "Java",
 				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.py"),
+					Extension: ".py",
+					Language:  "Python",
+				},
 			},
 		},
 		{
@@ -170,6 +180,11 @@ func TestMatchingFiles(t *testing.T) {
 					FilePath:  filepath.Join(codeSamplesDir, "_main.java"),
 					Extension: ".java",
 					Language:  "Java",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.py"),
+					Extension: ".py",
+					Language:  "Python",
 				},
 			},
 		},
