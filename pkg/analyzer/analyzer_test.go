@@ -166,6 +166,16 @@ func TestMatchingFiles(t *testing.T) {
 					Extension: ".java",
 					Language:  "Java",
 				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.php"),
+					Extension: ".php",
+					Language:  "PHP",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.py"),
+					Extension: ".py",
+					Language:  "Python3",
+				},
 			},
 		},
 		{
