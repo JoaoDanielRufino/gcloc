@@ -43,3 +43,5 @@ $n = sizeof($arr);
 
 insertionSortRecursive($arr, $n);
 printArray($arr, $n);
+
+?>
