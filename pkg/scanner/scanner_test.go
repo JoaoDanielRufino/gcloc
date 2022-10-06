@@ -58,6 +58,11 @@ func TestScan(t *testing.T) {
 			Extension: ".ts",
 			Language:  "TypeScript",
 		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "main.py"),
+			Extension: ".py",
+			Language:  "Python",
+		},
 	}
 
 	expected := []scanResult{
@@ -109,6 +114,13 @@ func TestScan(t *testing.T) {
 			CodeLines:  8,
 			BlankLines: 3,
 			Comments:   2,
+		},
+		{
+			Metadata:   files[7],
+			Lines:      23,
+			CodeLines:  12,
+			BlankLines: 4,
+			Comments:   7,
 		},
 	}
 
