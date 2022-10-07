@@ -1,3 +1,5 @@
+# Given an array of 0s and 1s in random order.
+# Segregate 0s on left side and 1s on right side of the array
 def segregate(a)
   left, right = 0, a.length - 1
   while left < right
@@ -18,7 +20,9 @@ def segregate(a)
       right -= 1
     end
   end
+
   return a
 end
 
-p segregate([1,0,1,1,0,0]) # => [0, 0, 0, 1, 1, 1]
+p segregate([1,0,1,1,0,0])
+# Output: [0, 0, 0, 1, 1, 1]
