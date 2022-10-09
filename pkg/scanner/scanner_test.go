@@ -68,6 +68,11 @@ func TestScan(t *testing.T) {
 			Extension: ".rb",
 			Language:  "Ruby",
 		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "Main.kt"),
+			Extension: ".kt",
+			Language:  "Kotlin",
+		},
 	}
 
 	expected := []scanResult{
@@ -133,6 +138,13 @@ func TestScan(t *testing.T) {
 			CodeLines:  18,
 			BlankLines: 4,
 			Comments:   8,
+		},
+		{
+			Metadata:   files[9],
+			Lines:      15,
+			CodeLines:  7,
+			BlankLines: 3,
+			Comments:   5,
 		},
 	}
 
