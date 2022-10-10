@@ -78,17 +78,17 @@ func TestScan(t *testing.T) {
 	expected := []scanResult{
 		{
 			Metadata:   files[0],
-			Lines:      13,
+			Lines:      19,
 			CodeLines:  8,
-			BlankLines: 3,
-			Comments:   2,
+			BlankLines: 5,
+			Comments:   6,
 		},
 		{
 			Metadata:   files[1],
-			Lines:      17,
+			Lines:      23,
 			CodeLines:  10,
-			BlankLines: 5,
-			Comments:   2,
+			BlankLines: 7,
+			Comments:   6,
 		},
 		{
 			Metadata:   files[2],
@@ -113,10 +113,10 @@ func TestScan(t *testing.T) {
 		},
 		{
 			Metadata:   files[5],
-			Lines:      13,
+			Lines:      20,
 			CodeLines:  8,
-			BlankLines: 3,
-			Comments:   2,
+			BlankLines: 6,
+			Comments:   6,
 		},
 		{
 			Metadata:   files[6],
