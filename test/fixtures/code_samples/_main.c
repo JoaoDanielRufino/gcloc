@@ -9,5 +9,10 @@ int main() {
   // Sum a + b
   int total = a + b;
 
+  // One line of comment block
+  /* This is multiple line
+  of comment block
+  just for testing the program */
+
   printf("%d\n", total);
 }
