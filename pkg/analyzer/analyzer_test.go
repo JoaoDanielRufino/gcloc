@@ -87,6 +87,16 @@ func TestMatchingFiles(t *testing.T) {
 					Extension: ".py",
 					Language:  "Python",
 				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.rb"),
+					Extension: ".rb",
+					Language:  "Ruby",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "Main.kt"),
+					Extension: ".kt",
+					Language:  "Kotlin",
+				},
 			},
 		},
 		{
@@ -134,6 +144,16 @@ func TestMatchingFiles(t *testing.T) {
 					Extension: ".py",
 					Language:  "Python",
 				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.rb"),
+					Extension: ".rb",
+					Language:  "Ruby",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "Main.kt"),
+					Extension: ".kt",
+					Language:  "Kotlin",
+				},
 			},
 		},
 		{
@@ -180,6 +200,16 @@ func TestMatchingFiles(t *testing.T) {
 					FilePath:  filepath.Join(codeSamplesDir, "main.py"),
 					Extension: ".py",
 					Language:  "Python",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.rb"),
+					Extension: ".rb",
+					Language:  "Ruby",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "Main.kt"),
+					Extension: ".kt",
+					Language:  "Kotlin",
 				},
 			},
 		},
