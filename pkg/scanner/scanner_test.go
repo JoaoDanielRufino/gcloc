@@ -168,7 +168,7 @@ func TestScan(t *testing.T) {
 			Lines:      5,
 			CodeLines:  2,
 			BlankLines: 1,
-			Comments:   2,
+			Comments:   3,
 		},
 	}
 
