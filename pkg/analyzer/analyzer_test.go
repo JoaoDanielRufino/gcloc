@@ -100,7 +100,7 @@ func TestMatchingFiles(t *testing.T) {
 				{
 					FilePath:  filepath.Join(codeSamplesDir, "hello.json"),
 					Extension: ".json",
-					Language:  "JSON",
+					Language:  "Json",
 				},
 			},
 		},
@@ -162,7 +162,7 @@ func TestMatchingFiles(t *testing.T) {
 				{
 					FilePath:  filepath.Join(codeSamplesDir, "hello.json"),
 					Extension: ".json",
-					Language:  "JSON",
+					Language:  "Json",
 				},
 			},
 		},
@@ -224,7 +224,7 @@ func TestMatchingFiles(t *testing.T) {
 				{
 					FilePath:  filepath.Join(codeSamplesDir, "hello.json"),
 					Extension: ".json",
-					Language:  "JSON",
+					Language:  "Json",
 				},
 			},
 		},
