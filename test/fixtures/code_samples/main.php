@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html>
-<body>
+<?php
+    /* The following line of code
+       will output the "Hello World!" message */
 
-<h1>Developer News</h1>
-
-<?php echo "The Best PHP Examples"; ?>
-
-// This is a single-line comment
-
-# This is also a single-line comment
-
-</body>
-</html> 
+    echo "Hello World!\n";
