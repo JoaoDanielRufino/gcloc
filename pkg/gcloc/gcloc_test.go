@@ -42,8 +42,8 @@ func TestNewGCloc(t *testing.T) {
 				analyzer: analyzer.NewAnalyzer(
 					filepath.Join(testDir, "fixtures", "code_samples"),
 					nil,
-					map[string]bool{},
-					map[string]bool{},
+					map[string]struct{}{},
+					map[string]struct{}{},
 					getExtensionsMap(constants.Languages),
 				),
 				scanner:   scanner.NewScanner(constants.Languages),
@@ -72,8 +72,8 @@ func TestNewGCloc(t *testing.T) {
 				analyzer: analyzer.NewAnalyzer(
 					filepath.Join(testDir, "fixtures", "code_samples"),
 					nil,
-					map[string]bool{".go": true},
-					map[string]bool{},
+					map[string]struct{}{".go": {}},
+					map[string]struct{}{},
 					getExtensionsMap(constants.Languages),
 				),
 				scanner:   scanner.NewScanner(constants.Languages),
@@ -102,8 +102,8 @@ func TestNewGCloc(t *testing.T) {
 				analyzer: analyzer.NewAnalyzer(
 					filepath.Join(testDir, "fixtures", "code_samples"),
 					nil,
-					map[string]bool{},
-					map[string]bool{},
+					map[string]struct{}{},
+					map[string]struct{}{},
 					getExtensionsMap(constants.Languages),
 				),
 				scanner: scanner.NewScanner(constants.Languages),

@@ -10,24 +10,24 @@ func TestConvertToMap(t *testing.T) {
 	tests := []struct {
 		name string
 		arr  []string
-		want map[string]bool
+		want map[string]struct{}
 	}{
 		{
 			name: "Should convert array to map",
 			arr:  []string{".go", ".c", ".cpp"},
-			want: map[string]bool{
-				".go":  true,
-				".c":   true,
-				".cpp": true,
+			want: map[string]struct{}{
+				".go":  {},
+				".c":   {},
+				".cpp": {},
 			},
 		},
 		{
 			name: "Should convert array(with repeated values) to map",
 			arr:  []string{".go", ".c", ".c", ".cpp"},
-			want: map[string]bool{
-				".go":  true,
-				".c":   true,
-				".cpp": true,
+			want: map[string]struct{}{
+				".go":  {},
+				".c":   {},
+				".cpp": {},
 			},
 		},
 	}

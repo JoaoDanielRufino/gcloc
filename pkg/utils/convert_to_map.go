@@ -1,10 +1,10 @@
 package utils
 
-func ConvertToMap(arr []string) map[string]bool {
-	mp := map[string]bool{}
+func ConvertToMap(arr []string) map[string]struct{} {
+	mp := map[string]struct{}{}
 
 	for _, x := range arr {
-		mp[x] = true
+		mp[x] = struct{}{}
 	}
 
 	return mp

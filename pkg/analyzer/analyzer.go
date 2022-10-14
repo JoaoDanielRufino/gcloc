@@ -10,8 +10,8 @@ type Analyzer struct {
 	SupportedExtensions map[string]string
 	path                string
 	excludePaths        []string
-	excludeExtensions   map[string]bool
-	includeExtensions   map[string]bool
+	excludeExtensions   map[string]struct{}
+	includeExtensions   map[string]struct{}
 }
 
 type FileMetadata struct {
@@ -23,8 +23,8 @@ type FileMetadata struct {
 func NewAnalyzer(
 	path string,
 	excludePaths []string,
-	excludeExtensions map[string]bool,
-	includeExtensions map[string]bool,
+	excludeExtensions map[string]struct{},
+	includeExtensions map[string]struct{},
 	extensions map[string]string,
 ) *Analyzer {
 	return &Analyzer{

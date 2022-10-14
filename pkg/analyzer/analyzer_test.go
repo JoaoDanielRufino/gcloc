@@ -16,14 +16,14 @@ func TestNewAnalyzer(t *testing.T) {
 		SupportedExtensions: extensions,
 		path:                "test/",
 		excludePaths:        []string{"test"},
-		excludeExtensions:   map[string]bool{".go": true},
-		includeExtensions:   map[string]bool{},
+		excludeExtensions:   map[string]struct{}{".go": {}},
+		includeExtensions:   map[string]struct{}{},
 	}
 	analyser := NewAnalyzer(
 		"test/",
 		[]string{"test"},
-		map[string]bool{".go": true},
-		map[string]bool{},
+		map[string]struct{}{".go": {}},
+		map[string]struct{}{},
 		extensions,
 	)
 	require.NotNil(t, analyser)
@@ -42,8 +42,8 @@ func TestMatchingFiles(t *testing.T) {
 			analyzer: NewAnalyzer(
 				codeSamplesDir,
 				[]string{},
-				map[string]bool{},
-				map[string]bool{},
+				map[string]struct{}{},
+				map[string]struct{}{},
 				extensions,
 			),
 			want: []FileMetadata{
@@ -114,8 +114,8 @@ func TestMatchingFiles(t *testing.T) {
 			analyzer: NewAnalyzer(
 				codeSamplesDir,
 				[]string{filepath.Join(codeSamplesDir, "main.go")},
-				map[string]bool{},
-				map[string]bool{},
+				map[string]struct{}{},
+				map[string]struct{}{},
 				extensions,
 			),
 			want: []FileMetadata{
@@ -181,8 +181,8 @@ func TestMatchingFiles(t *testing.T) {
 			analyzer: NewAnalyzer(
 				codeSamplesDir,
 				[]string{},
-				map[string]bool{".go": true},
-				map[string]bool{},
+				map[string]struct{}{".go": {}},
+				map[string]struct{}{},
 				extensions,
 			),
 			want: []FileMetadata{
@@ -248,8 +248,8 @@ func TestMatchingFiles(t *testing.T) {
 			analyzer: NewAnalyzer(
 				codeSamplesDir,
 				[]string{},
-				map[string]bool{},
-				map[string]bool{".go": true},
+				map[string]struct{}{},
+				map[string]struct{}{".go": {}},
 				extensions,
 			),
 			want: []FileMetadata{
