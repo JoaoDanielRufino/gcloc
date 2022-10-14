@@ -102,6 +102,11 @@ func TestMatchingFiles(t *testing.T) {
 					Extension: ".json",
 					Language:  "Json",
 				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.php"),
+					Extension: ".php",
+					Language:  "PHP",
+				},
 			},
 		},
 		{
@@ -164,6 +169,11 @@ func TestMatchingFiles(t *testing.T) {
 					Extension: ".json",
 					Language:  "Json",
 				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.php"),
+					Extension: ".php",
+					Language:  "PHP",
+				},
 			},
 		},
 		{
@@ -225,6 +235,11 @@ func TestMatchingFiles(t *testing.T) {
 					FilePath:  filepath.Join(codeSamplesDir, "hello.json"),
 					Extension: ".json",
 					Language:  "Json",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "main.php"),
+					Extension: ".php",
+					Language:  "PHP",
 				},
 			},
 		},

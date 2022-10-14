@@ -78,6 +78,11 @@ func TestScan(t *testing.T) {
 			Extension: ".json",
 			Language:  "Json",
 		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "main.php"),
+			Extension: ".php",
+			Language:  "PHP",
+		},
 	}
 
 	expected := []scanResult{
@@ -157,6 +162,13 @@ func TestScan(t *testing.T) {
 			CodeLines:  13,
 			BlankLines: 1,
 			Comments:   0,
+		},
+		{
+			Metadata:   files[11],
+			Lines:      14,
+			CodeLines:  7,
+			BlankLines: 5,
+			Comments:   2,
 		},
 	}
 
