@@ -1,0 +1,14 @@
+{
+	"name": "fred",
+	"siblings": [
+		{
+			"name": "bob"
+		},
+		{
+			"name": "alice"
+		}
+	],
+	"yearsOld": 30,
+	"isHappy": true
+
+}

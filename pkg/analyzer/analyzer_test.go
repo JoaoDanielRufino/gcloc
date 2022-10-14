@@ -97,6 +97,11 @@ func TestMatchingFiles(t *testing.T) {
 					Extension: ".kt",
 					Language:  "Kotlin",
 				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "hello.json"),
+					Extension: ".json",
+					Language:  "Json",
+				},
 			},
 		},
 		{
@@ -154,6 +159,11 @@ func TestMatchingFiles(t *testing.T) {
 					Extension: ".kt",
 					Language:  "Kotlin",
 				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "hello.json"),
+					Extension: ".json",
+					Language:  "Json",
+				},
 			},
 		},
 		{
@@ -210,6 +220,11 @@ func TestMatchingFiles(t *testing.T) {
 					FilePath:  filepath.Join(codeSamplesDir, "Main.kt"),
 					Extension: ".kt",
 					Language:  "Kotlin",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "hello.json"),
+					Extension: ".json",
+					Language:  "Json",
 				},
 			},
 		},

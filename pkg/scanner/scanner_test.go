@@ -73,6 +73,11 @@ func TestScan(t *testing.T) {
 			Extension: ".kt",
 			Language:  "Kotlin",
 		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "hello.json"),
+			Extension: ".json",
+			Language:  "Json",
+		},
 	}
 
 	expected := []scanResult{
@@ -145,6 +150,13 @@ func TestScan(t *testing.T) {
 			CodeLines:  7,
 			BlankLines: 3,
 			Comments:   5,
+		},
+		{
+			Metadata:   files[10],
+			Lines:      14,
+			CodeLines:  13,
+			BlankLines: 1,
+			Comments:   0,
 		},
 	}
 
