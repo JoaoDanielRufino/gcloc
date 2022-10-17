@@ -83,6 +83,11 @@ func TestScan(t *testing.T) {
 			Extension: ".php",
 			Language:  "PHP",
 		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "App.vue"),
+			Extension: ".vue",
+			Language:  "Vue",
+		},
 	}
 
 	expected := []scanResult{
@@ -169,6 +174,13 @@ func TestScan(t *testing.T) {
 			CodeLines:  2,
 			BlankLines: 1,
 			Comments:   3,
+		},
+		{
+			Metadata:   files[12],
+			Lines:      51,
+			CodeLines:  39,
+			BlankLines: 7,
+			Comments:   5,
 		},
 	}
 
