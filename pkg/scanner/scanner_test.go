@@ -84,6 +84,11 @@ func TestScan(t *testing.T) {
 			Language:  "PHP",
 		},
 		{
+			FilePath:  filepath.Join(codeSamplesDir, "Makefile"),
+			Extension: "Makefile",
+			Language:  "Makefile",
+    },
+    {
 			FilePath:  filepath.Join(codeSamplesDir, "App.vue"),
 			Extension: ".vue",
 			Language:  "Vue",
@@ -177,6 +182,13 @@ func TestScan(t *testing.T) {
 		},
 		{
 			Metadata:   files[12],
+			Lines:      24,
+			CodeLines:  19,
+			BlankLines: 4,
+			Comments:   1,
+    },
+    {
+    	Metadata:   files[13],
 			Lines:      51,
 			CodeLines:  39,
 			BlankLines: 7,
