@@ -111,7 +111,12 @@ func TestMatchingFiles(t *testing.T) {
 					FilePath:  filepath.Join(codeSamplesDir, "Makefile"),
 					Extension: "Makefile",
 					Language:  "Makefile",
-				},
+        },
+        {
+					FilePath:  filepath.Join(codeSamplesDir, "App.vue"),
+					Extension: ".vue",
+					Language:  "Vue",
+        },
 			},
 		},
 		{
@@ -180,9 +185,15 @@ func TestMatchingFiles(t *testing.T) {
 					Language:  "PHP",
 				},
 				{
+
 					FilePath:  filepath.Join(codeSamplesDir, "Makefile"),
 					Extension: "Makefile",
 					Language:  "Makefile",
+        },
+        {
+					FilePath:  filepath.Join(codeSamplesDir, "App.vue"),
+					Extension: ".vue",
+					Language:  "Vue",
 				},
 			},
 		},
@@ -255,6 +266,11 @@ func TestMatchingFiles(t *testing.T) {
 					FilePath:  filepath.Join(codeSamplesDir, "Makefile"),
 					Extension: "Makefile",
 					Language:  "Makefile",
+        },
+        {
+					FilePath:  filepath.Join(codeSamplesDir, "App.vue"),
+					Extension: ".vue",
+					Language:  "Vue",
 				},
 			},
 		},
