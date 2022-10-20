@@ -111,12 +111,17 @@ func TestMatchingFiles(t *testing.T) {
 					FilePath:  filepath.Join(codeSamplesDir, "Makefile"),
 					Extension: "Makefile",
 					Language:  "Makefile",
-        },
-        {
+				},
+				{
 					FilePath:  filepath.Join(codeSamplesDir, "App.vue"),
 					Extension: ".vue",
 					Language:  "Vue",
-        },
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "readme.md"),
+					Extension: ".md",
+					Language:  "Markdown",
+				},
 			},
 		},
 		{
@@ -189,11 +194,16 @@ func TestMatchingFiles(t *testing.T) {
 					FilePath:  filepath.Join(codeSamplesDir, "Makefile"),
 					Extension: "Makefile",
 					Language:  "Makefile",
-        },
-        {
+				},
+				{
 					FilePath:  filepath.Join(codeSamplesDir, "App.vue"),
 					Extension: ".vue",
 					Language:  "Vue",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "readme.md"),
+					Extension: ".md",
+					Language:  "Markdown",
 				},
 			},
 		},
@@ -266,11 +276,16 @@ func TestMatchingFiles(t *testing.T) {
 					FilePath:  filepath.Join(codeSamplesDir, "Makefile"),
 					Extension: "Makefile",
 					Language:  "Makefile",
-        },
-        {
+				},
+				{
 					FilePath:  filepath.Join(codeSamplesDir, "App.vue"),
 					Extension: ".vue",
 					Language:  "Vue",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "readme.md"),
+					Extension: ".md",
+					Language:  "Markdown",
 				},
 			},
 		},
