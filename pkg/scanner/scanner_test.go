@@ -87,11 +87,16 @@ func TestScan(t *testing.T) {
 			FilePath:  filepath.Join(codeSamplesDir, "Makefile"),
 			Extension: "Makefile",
 			Language:  "Makefile",
-    },
-    {
+		},
+		{
 			FilePath:  filepath.Join(codeSamplesDir, "App.vue"),
 			Extension: ".vue",
 			Language:  "Vue",
+		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "readme.md"),
+			Extension: ".md",
+			Language:  "Markdown",
 		},
 	}
 
@@ -186,13 +191,20 @@ func TestScan(t *testing.T) {
 			CodeLines:  19,
 			BlankLines: 4,
 			Comments:   1,
-    },
-    {
-    	Metadata:   files[13],
+		},
+		{
+			Metadata:   files[13],
 			Lines:      51,
 			CodeLines:  39,
 			BlankLines: 7,
 			Comments:   5,
+		},
+		{
+			Metadata:   files[14],
+			Lines:      18,
+			CodeLines:  16,
+			BlankLines: 2,
+			Comments:   0,
 		},
 	}
 
