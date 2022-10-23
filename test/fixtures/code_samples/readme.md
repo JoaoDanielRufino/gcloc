@@ -1,18 +1,24 @@
-<div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
+# GCloc
 
-  <h3 align="center">Best-README-Template</h3>
+A cli written in Go inspired by [cloc](https://github.com/AlDanial/cloc) to count the lines, blank lines and comment lines of source code.
 
-  <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
-  </p>
-</div>
+## Installation
+
+You can install from the stable release by clicking [here](https://github.com/JoaoDanielRufino/gcloc/releases/latest)
+
+## Usage
+
+### Basic example
+
+```
+$ gcloc .
+  Language | Files | Lines | Blank lines | Comments | Code lines
+-----------+-------+-------+-------------+----------+-------------
+  Golang   |    26 |  1588 |         253 |       12 |       1323
+  HTML     |     2 |   576 |          82 |       16 |        478
+  YAML     |     4 |   108 |           8 |        0 |        100
+  Makefile |     1 |    22 |           3 |        0 |         19
+-----------+-------+-------+-------------+----------+-------------
+   Total   |  33   | 2294  |     346     |    28    |    1920
+-----------+-------+-------+-------------+----------+-------------
+```
