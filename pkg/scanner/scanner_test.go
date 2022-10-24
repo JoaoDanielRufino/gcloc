@@ -98,6 +98,11 @@ func TestScan(t *testing.T) {
 			Extension: ".md",
 			Language:  "Markdown",
 		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "example.yml"),
+			Extension: ".yml",
+			Language:  "YAML",
+		},
 	}
 
 	expected := []scanResult{
@@ -204,6 +209,13 @@ func TestScan(t *testing.T) {
 			Lines:      24,
 			CodeLines:  18,
 			BlankLines: 6,
+			Comments:   0,
+		},
+		{
+			Metadata:   files[15],
+			Lines:      26,
+			CodeLines:  25,
+			BlankLines: 1,
 			Comments:   0,
 		},
 	}
