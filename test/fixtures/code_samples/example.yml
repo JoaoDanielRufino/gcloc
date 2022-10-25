@@ -7,6 +7,8 @@ spring:
         enabled: true
         profile-separator: '/'
         default-context: app
+  # this is 2 line
+  # yaml comment
   jpa:
     properties:
       hibernate:
