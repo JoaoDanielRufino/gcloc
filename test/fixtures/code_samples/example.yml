@@ -1,0 +1,28 @@
+spring:
+  config:
+    import: optional:configserver:http://localhost:8888/
+  cloud:
+    vault:
+      generic:
+        enabled: true
+        profile-separator: '/'
+        default-context: app
+  # this is 2 line
+  # yaml comment
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+  application:
+    name: app-name
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+keycloak:
+  auth-server-url: http://localhost:8080/auth
+  realm: master
+  resource: resource-name
+server:
+  port: 0
+
