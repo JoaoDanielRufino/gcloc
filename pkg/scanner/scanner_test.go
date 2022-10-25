@@ -224,7 +224,7 @@ func TestScan(t *testing.T) {
 			Comments:   0,
 		},
 		{
-			Metadata:   files[15],
+			Metadata:   files[16],
 			Lines:      28,
 			CodeLines:  25,
 			BlankLines: 1,
