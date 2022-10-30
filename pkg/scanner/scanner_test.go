@@ -108,6 +108,11 @@ func TestScan(t *testing.T) {
 			Extension: ".yml",
 			Language:  "YAML",
 		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "fernando-pessoa.txt"),
+			Extension: ".txt",
+			Language:  "Plain Text",
+		},
 	}
 
 	expected := []scanResult{
@@ -229,6 +234,13 @@ func TestScan(t *testing.T) {
 			CodeLines:  25,
 			BlankLines: 1,
 			Comments:   2,
+		},
+		{
+			Metadata:   files[17],
+			Lines:      50,
+			CodeLines:  37,
+			BlankLines: 13,
+			Comments:   0,
 		},
 	}
 

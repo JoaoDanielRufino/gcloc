@@ -128,6 +128,11 @@ func TestMatchingFiles(t *testing.T) {
 					Language:  "Markdown",
 				},
 				{
+					FilePath:  filepath.Join(codeSamplesDir, "fernando-pessoa.txt"),
+					Extension: ".txt",
+					Language:  "Plain Text",
+				},
+				{
 					FilePath:  filepath.Join(codeSamplesDir, "example.yml"),
 					Extension: ".yml",
 					Language:  "YAML",
@@ -221,6 +226,11 @@ func TestMatchingFiles(t *testing.T) {
 					Language:  "Markdown",
 				},
 				{
+					FilePath:  filepath.Join(codeSamplesDir, "fernando-pessoa.txt"),
+					Extension: ".txt",
+					Language:  "Plain Text",
+				},
+				{
 					FilePath:  filepath.Join(codeSamplesDir, "example.yml"),
 					Extension: ".yml",
 					Language:  "YAML",
@@ -311,6 +321,11 @@ func TestMatchingFiles(t *testing.T) {
 					FilePath:  filepath.Join(codeSamplesDir, "readme.md"),
 					Extension: ".md",
 					Language:  "Markdown",
+				},
+				{
+					FilePath:  filepath.Join(codeSamplesDir, "fernando-pessoa.txt"),
+					Extension: ".txt",
+					Language:  "Plain Text",
 				},
 				{
 					FilePath:  filepath.Join(codeSamplesDir, "example.yml"),
