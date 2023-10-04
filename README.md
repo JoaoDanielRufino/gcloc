@@ -192,6 +192,7 @@ $ gcloc languages
   Processing       |  .pde          |  //             |  /* */
   Protocol Buffers |  .proto        |  //             |
   Python           |  .py           |  #              |  """ """
+  PRQL             |  .prql         |  #              |
   R                |  .r .R         |  #              |
   Rego             |  .rego         |  #              |
   Ruby             |  .rb           |  #              |  =begin =end

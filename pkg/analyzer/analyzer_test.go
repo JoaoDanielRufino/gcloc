@@ -93,6 +93,11 @@ func TestMatchingFiles(t *testing.T) {
 					Language:  "Python",
 				},
 				{
+					FilePath:  filepath.Join(codeSamplesDir, "example.prql"),
+					Extension: ".prql",
+					Language:  "PRQL",
+				},
+				{
 					FilePath:  filepath.Join(codeSamplesDir, "main.rb"),
 					Extension: ".rb",
 					Language:  "Ruby",

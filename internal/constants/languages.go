@@ -183,6 +183,11 @@ var Languages = language.Languages{
 		MultiLineComments: [][]string{{"\"\"\"", "\"\"\""}},
 		Extensions:        []string{".py"},
 	},
+	"PRQL": {
+		LineComments:      []string{"#"},
+		MultiLineComments: [][]string{},
+		Extensions:        []string{".prql"},
+	},
 	"R": {
 		LineComments:      []string{"#"},
 		MultiLineComments: [][]string{},
