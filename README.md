@@ -190,9 +190,9 @@ $ gcloc languages
   Plain Text       |  .txt .text    |                 |
   PowerShell       |  .ps1          |  #              |
   Processing       |  .pde          |  //             |  /* */
+  PRQL             |  .prql         |  #              |
   Protocol Buffers |  .proto        |  //             |
   Python           |  .py           |  #              |  """ """
-  PRQL             |  .prql         |  #              |
   R                |  .r .R         |  #              |
   Rego             |  .rego         |  #              |
   Ruby             |  .rb           |  #              |  =begin =end
