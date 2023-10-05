@@ -69,11 +69,6 @@ func TestScan(t *testing.T) {
 			Language:  "Python",
 		},
 		{
-			FilePath:  filepath.Join(codeSamplesDir, "example.prql"),
-			Extension: ".prql",
-			Language:  "PRQL",
-		},
-		{
 			FilePath:  filepath.Join(codeSamplesDir, "main.rb"),
 			Extension: ".rb",
 			Language:  "Ruby",
@@ -117,6 +112,11 @@ func TestScan(t *testing.T) {
 			FilePath:  filepath.Join(codeSamplesDir, "fernando-pessoa.txt"),
 			Extension: ".txt",
 			Language:  "Plain Text",
+		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "example.prql"),
+			Extension: ".prql",
+			Language:  "PRQL",
 		},
 	}
 
@@ -246,6 +246,13 @@ func TestScan(t *testing.T) {
 			CodeLines:  37,
 			BlankLines: 13,
 			Comments:   0,
+		},
+		{
+			Metadata:   files[18],
+			Lines:      5,
+			CodeLines:  4,
+			BlankLines: 0,
+			Comments:   1,
 		},
 	}
 
