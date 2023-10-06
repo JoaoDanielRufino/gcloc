@@ -113,6 +113,11 @@ func TestScan(t *testing.T) {
 			Extension: ".txt",
 			Language:  "Plain Text",
 		},
+		{
+			FilePath:  filepath.Join(codeSamplesDir, "example.prql"),
+			Extension: ".prql",
+			Language:  "PRQL",
+		},
 	}
 
 	expected := []scanResult{
@@ -241,6 +246,13 @@ func TestScan(t *testing.T) {
 			CodeLines:  37,
 			BlankLines: 13,
 			Comments:   0,
+		},
+		{
+			Metadata:   files[18],
+			Lines:      5,
+			CodeLines:  4,
+			BlankLines: 0,
+			Comments:   1,
 		},
 	}
 

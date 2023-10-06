@@ -191,6 +191,7 @@ $ gcloc languages
   PowerShell       |  .ps1          |  #              |
   Processing       |  .pde          |  //             |  /* */
   Protocol Buffers |  .proto        |  //             |
+  PRQL             |  .prql         |  #              |
   Python           |  .py           |  #              |  """ """
   R                |  .r .R         |  #              |
   Rego             |  .rego         |  #              |
